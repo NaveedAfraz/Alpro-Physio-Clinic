@@ -48,7 +48,12 @@ const Hero = () => {
     >
       {/* Background */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-light-blue/50 to-primary/20"></div>
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(to right, hsl(var(--light-blue) / 0.5), hsl(var(--primary) / 0.2))'
+          } as React.CSSProperties}
+        ></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -57,16 +62,12 @@ const Hero = () => {
           <div className="animate-slide-in-left">
             <div className="mb-8">
               {/* --- CHANGE 1 & 2: Smaller heading & adjusted height --- */}
-              <div className="mb-8">
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                  <span className="text-headline block">
-                    Healthcare That the World Trusts
-                  </span>
-                  <span className="text-subhead block mt-2">
-                    Now in Shivpuri
-                  </span>
-                </h1>
-                <p className="text-body text-foreground/80 mb-8 max-w-lg leading-relaxed">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 min-h-[120px] md:min-h-[220px] flex items-center">
+                <span className="bg-gradient-to-r from-primary to-primary-deep bg-clip-text text-transparent">
+                  {displayedText}
+                </span>
+              </h1>
+              <p className="text-body-large text-muted-foreground mb-8 max-w-lg leading-relaxed">
                 Premium physiotherapy, rehabilitation, cupping therapy &
                 alternative wellness solutions designed to heal, restore, and
                 empower.
@@ -116,10 +117,10 @@ const Hero = () => {
                 </p>
               </div>
               <form className="space-y-4">
-                <div className="space-y-1">
+                <div className="space-y-2">
                   <label
                     htmlFor="fullName"
-                    className="text-sm font-medium text-foreground/80"
+                    className="text-sm font-medium text-gray-700"
                   >
                     Full Name
                   </label>
@@ -129,7 +130,7 @@ const Hero = () => {
                       id="fullName"
                       type="text"
                       placeholder="John Doe"
-                      className="h-12 text-md pl-10 border border-input rounded-lg focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 transition-colors"
+                      className="h-12 text-md pl-10 border-2 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/50"
                     />
                   </div>
                 </div>
