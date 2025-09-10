@@ -44,142 +44,126 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-white to-[#DDF1FC]"
     >
       {/* Background */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 bg-[url('/grid-pattern.svg')] opacity-10">
         <div 
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(to right, hsl(var(--light-blue) / 0.5), hsl(var(--primary) / 0.2))'
-          } as React.CSSProperties}
-        ></div>
+            background: 'linear-gradient(to right, #DDF1FC80, #5492DD33)'
+          }}
+        />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container relative z-20 px-4 mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
           {/* Left Side Content */}
           <div className="animate-slide-in-left">
-            <div className="mb-8">
-              {/* --- CHANGE 1 & 2: Smaller heading & adjusted height --- */}
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 min-h-[120px] md:min-h-[220px] flex items-center">
-                <span className="bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary-deep))] bg-clip-text text-transparent">
-                  {displayedText}
-                </span>
-              </h1>
-              <p className="text-body-large text-muted-foreground mb-8 max-w-lg leading-relaxed">
-                Premium physiotherapy, rehabilitation, cupping therapy &
-                alternative wellness solutions designed to heal, restore, and
-                empower.
-              </p>
+            <h1 className="text-hero font-bold mb-6 min-h-[120px] md:min-h-[220px] flex items-center font-acumin">
+              <span className="bg-gradient-to-r from-[#5492DD] to-[#0044A3] bg-clip-text text-transparent">
+                {displayedText}
+              </span>
+            </h1>
+            <p className="text-lg text-[#1C1D0E]/80 mb-8 max-w-lg leading-relaxed font-opensans">
+              Premium physiotherapy, rehabilitation, cupping therapy &
+              alternative wellness solutions designed to heal, restore, and
+              empower.
+            </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <Button
-                  size="lg"
-                  className="bg-gradient-accent text-accent-foreground px-8 py-6 text-lg font-semibold hover-glow shadow-medium relative overflow-hidden group"
-                >
-                  <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                  <Calendar className="mr-2" size={20} />
-                  Book Appointment
-                  <ArrowRight
-                    className="ml-2 transition-transform group-hover:translate-x-1"
-                    size={20}
-                  />
-                </Button>
+            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+              <Button
+                size="lg"
+                className="bg-[#0044A3] hover:bg-[#003380] text-white px-8 py-6 text-lg font-semibold shadow-md hover:shadow-lg transition-all"
+              >
+                <Calendar className="mr-2" size={20} />
+                Book Appointment
+                <ArrowRight
+                  className="ml-2 transition-transform group-hover:translate-x-1"
+                  size={20}
+                />
+              </Button>
 
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-2 border-teal text-teal hover:bg-teal hover:text-white px-8 py-6 text-lg font-semibold relative overflow-hidden group"
-                >
-                  <div className="absolute inset-0 bg-teal -translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-                  <Globe className="mr-2 relative z-10" size={20} />
-                  <span className="relative z-10">Explore Medical Tourism</span>
-                </Button>
-              </div>
+              <Button
+                variant="outline"
+                className="border-2 border-[#008D7D] text-[#008D7D] hover:bg-[#008D7D] hover:text-white px-8 py-6 text-lg font-semibold transition-colors"
+              >
+                <Globe className="mr-2" size={20} />
+                Explore Medical Tourism
+              </Button>
             </div>
           </div>
 
           {/* Right Side Content (Form) */}
-          {/* --- CHANGE 3: Restyled the form card --- */}
           <div className="animate-slide-in-right">
-            <Card className="p-8 shadow-strong bg-white/95 backdrop-blur-md border-0 rounded-2xl">
+            <div className="bg-white p-8 rounded-xl shadow-xl border border-[#E5E4E2]">
               <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-foreground mb-2">
+                <h2 className="text-3xl font-bold text-[#1C1D0E] font-acumin">
                   Book Your First{" "}
-                  <span className="bg-gradient-to-r from-accent to-amber-400 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-[#5492DD] to-[#0044A3] bg-clip-text text-transparent">
                     Free
                   </span>{" "}
                   Appointment
-                </h3>
-                <p className="text-muted-foreground">
+                </h2>
+                <p className="text-[#1C1D0E]/80 mt-2 font-opensans">
                   Get personalized treatment plans from certified therapists
                 </p>
               </div>
               <form className="space-y-4">
                 <div className="space-y-2">
-                  <label
-                    htmlFor="fullName"
-                    className="text-sm font-medium text-gray-700"
-                  >
+                  <h3 className="text-lg font-semibold text-[#1C1D0E] font-opensans">
                     Full Name
-                  </label>
+                  </h3>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#1C1D0E]/50" />
                     <Input
                       id="fullName"
                       type="text"
                       placeholder="John Doe"
-                      className="h-12 text-md pl-10 border-2 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/50"
+                      className="h-12 text-md pl-10 border-2 border-[#E5E4E2] rounded-lg focus:border-[#5492DD] focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
                     />
                   </div>
                 </div>
+
                 <div className="space-y-2">
-                  <label
-                    htmlFor="phone"
-                    className="text-sm font-medium text-gray-700"
-                  >
+                  <h3 className="text-lg font-semibold text-[#1C1D0E] font-opensans">
                     Phone Number
-                  </label>
+                  </h3>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#1C1D0E]/50" />
                     <Input
                       id="phone"
                       type="tel"
                       placeholder="98765 43210"
-                      className="h-12 text-md pl-10 border-2 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/50"
+                      className="h-12 text-md pl-10 border-2 border-[#E5E4E2] rounded-lg focus:border-[#5492DD] focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
                     />
                   </div>
                 </div>
+
                 <div className="space-y-2">
-                  <label
-                    htmlFor="email"
-                    className="text-sm font-medium text-gray-700"
-                  >
+                  <h3 className="text-lg font-semibold text-[#1C1D0E] font-opensans">
                     Email Address
-                  </label>
+                  </h3>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#1C1D0E]/50" />
                     <Input
                       id="email"
                       type="email"
                       placeholder="you@example.com"
-                      className="h-12 text-md pl-10 border-2 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/50"
+                      className="h-12 text-md pl-10 border-2 border-[#E5E4E2] rounded-lg focus:border-[#5492DD] focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
                     />
                   </div>
                 </div>
+
                 <div className="space-y-2">
-                  <label
-                    htmlFor="service"
-                    className="text-sm font-medium text-gray-700"
-                  >
+                  <h3 className="text-lg font-semibold text-[#1C1D0E] font-opensans">
                     Service
-                  </label>
+                  </h3>
                   <div className="relative">
-                    <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#1C1D0E]/50" />
                     <select
                       id="service"
-                      className="w-full h-12 px-3 pl-10 border-2 rounded-lg bg-background text-md focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
+                      className="w-full h-12 px-3 pl-10 border-2 border-[#E5E4E2] rounded-lg bg-white text-md focus:border-[#5492DD] focus:outline-none focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
                       defaultValue=""
                     >
                       <option value="" disabled>
@@ -200,16 +184,16 @@ const Hero = () => {
                 </div>
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-gradient-hero text-lg font-semibold flex items-center justify-center gap-2 hover-glow shadow-medium transition-all duration-300 group mt-4"
+                  className="w-full bg-[#0044A3] hover:bg-[#003380] text-white py-3 px-6 rounded-lg text-lg font-semibold transition-colors mt-6 flex items-center justify-center gap-2"
                 >
-                  Submit Request
+                  Book Free Consultation
                   <ArrowRight
                     className="transition-transform group-hover:translate-x-1"
                     size={20}
                   />
                 </Button>
               </form>
-            </Card>
+            </div>
           </div>
         </div>
       </div>

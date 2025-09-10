@@ -1,7 +1,49 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+@import url('https://use.typekit.net/xxxxxxx.css'); /* Replace xxxxxxx with your Acumin Variable Concept font kit ID */
 
 @custom-variant dark (&:is(.dark *));
+
+/* Font Families */
+:root {
+  --font-acumin: 'acumin-variable', sans-serif;
+  --font-opensans: 'Open Sans', sans-serif;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-acumin);
+  font-weight: 700;
+}
+
+body {
+  font-family: var(--font-opensans);
+  font-weight: 400;
+  color: #1C1D0E;
+}
+
+.subheading {
+  font-family: var(--font-opensans);
+  font-weight: 600;
+}
+
+/* Color Variables */
+:root {
+  /* Primary Colors */
+  --color-blue: #5492DD;
+  --color-deep-blue: #0044A3;
+  --color-dark-gray: #1C1D0E;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  
+  /* Secondary Colors */
+  --color-teal: #008D7D;
+  --color-maroon: #A30044;
+  --color-mustard: #DD9F54;
+  --color-gray: #E5E4E2;
+  --color-light-blue: #DDF1FC;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
