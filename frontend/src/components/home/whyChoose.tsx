@@ -1,12 +1,4 @@
-import { Card } from "../ui/card";
-import {
-  CheckCircle,
-  Users,
-  Award,
-  Heart,
-  Stethoscope,
-  Globe,
-} from "lucide-react";
+import { CheckCircle, Users, Award, Heart, Stethoscope, Globe } from "lucide-react";
 
 const WhyChoose = () => {
   const reasons = [
@@ -50,73 +42,81 @@ const WhyChoose = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section id="why-choose" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-up">
-          <h2 className="text-headline font-bold text-foreground mb-6">
-            Why Choose Alpro?
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-[#1C1D0E] mb-6 font-acumin">
+            Why Choose <span className="bg-gradient-to-r from-[#5492DD] to-[#0044A3] bg-clip-text text-transparent">Alpro</span>?
           </h2>
-          <div className="w-24 h-1 bg-accent mx-auto mb-8"></div>
-          <p className="text-body-large text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg text-[#1C1D0E]/80 max-w-3xl mx-auto font-opensans">
             Experience the difference that quality care, advanced technology,
             and personalized treatment can make in your recovery journey.
           </p>
         </div>
 
         {/* Stats Section */}
-        <div className="grid md:grid-cols-4 gap-6 mb-16 animate-scale-in">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {stats.map((stat, index) => (
-            <Card
+            <div
               key={index}
-              className="p-6 text-center bg-white border-0 shadow-soft hover-lift"
+              className="p-6 text-center bg-white rounded-xl border border-[#E5E4E2] hover:shadow-md transition-shadow"
             >
-              <div className="text-3xl font-bold text-primary mb-2">
+              <div className="text-3xl font-bold text-[#0044A3] mb-2 font-acumin">
                 {stat.number}
               </div>
-              <div className="text-muted-foreground">{stat.label}</div>
-            </Card>
+              <div className="text-[#1C1D0E]/80 font-opensans">{stat.label}</div>
+            </div>
           ))}
         </div>
 
         {/* Reasons Grid */}
         <div className="grid lg:grid-cols-2 gap-8 mb-16">
-          {reasons.map((reason, index) => (
-            <Card
-              key={index}
-              className="p-8 bg-white border-0 shadow-soft hover-lift hover:shadow-medium transition-all duration-300"
-            >
-              <div className="flex items-start gap-6">
-                <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <reason.icon className="w-8 h-8 text-primary" />
-                </div>
+          {reasons.map((reason, index) => {
+            const iconBgColors = [
+              "bg-[#DDF1FC] text-[#0044A3]",
+              "bg-[#E6F7F5] text-[#008D7D]",
+              "bg-[#EBF5FF] text-[#5492DD]",
+              "bg-[#F0F7FF] text-[#5492DD]"
+            ];
+            
+            return (
+              <div
+                key={index}
+                className="p-8 bg-white rounded-xl border border-[#E5E4E2] hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-start gap-6">
+                  <div className={`w-14 h-14 ${iconBgColors[index % iconBgColors.length]} rounded-xl flex items-center justify-center flex-shrink-0`}>
+                    <reason.icon className="w-6 h-6" />
+                  </div>
 
-                <div>
-                  <h3 className="text-xl font-semibold text-foreground mb-4">
-                    {reason.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {reason.description}
-                  </p>
+                  <div>
+                    <h3 className="text-xl font-semibold text-[#1C1D0E] mb-3 font-acumin">
+                      {reason.title}
+                    </h3>
+                    <p className="text-[#1C1D0E]/80 leading-relaxed font-opensans">
+                      {reason.description}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </Card>
-          ))}
+            );
+          })}
         </div>
 
         {/* Benefits Checklist */}
-        <div className="animate-fade-up">
-          <Card className="p-8 bg-gradient-to-r from-primary to-primary-deep text-white border-0 shadow-strong">
+        <div>
+          <div className="bg-gradient-to-r from-[#0044A3] to-[#5492DD] text-white p-8 rounded-2xl">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold mb-4">
+              <h3 className="text-2xl font-bold mb-4 font-acumin">
                 What You Get with Alpro Physio Clinic
               </h3>
-              <p className="text-lg text-white/90">
+              <p className="text-lg text-white/90 font-opensans">
                 Comprehensive care that goes beyond traditional physiotherapy
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {[
                 "Free Initial Consultation",
                 "Personalized Treatment Plans",
@@ -129,18 +129,18 @@ const WhyChoose = () => {
                 "Insurance Claim Assistance",
               ].map((benefit, index) => (
                 <div key={index} className="flex items-center gap-3">
-                  <CheckCircle className="w-6 h-6 text-accent flex-shrink-0" />
-                  <span className="text-white">{benefit}</span>
+                  <CheckCircle className="w-5 h-5 text-white flex-shrink-0" />
+                  <span className="text-white/90 font-opensans">{benefit}</span>
                 </div>
               ))}
             </div>
 
-            <div className="text-center mt-8">
-              <button className="px-8 py-4 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold rounded-md transition-colors hover-lift text-lg">
+            <div className="text-center">
+              <button className="px-8 py-3 bg-white hover:bg-white/90 text-[#0044A3] font-semibold rounded-lg transition-colors font-opensans">
                 Start Your Recovery Today
               </button>
             </div>
-          </Card>
+          </div>
         </div>
       </div>
     </section>
