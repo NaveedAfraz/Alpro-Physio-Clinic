@@ -63,7 +63,7 @@ const Hero = () => {
             <div className="mb-8">
               {/* --- CHANGE 1 & 2: Smaller heading & adjusted height --- */}
               <h1 className="text-4xl md:text-5xl font-bold mb-6 min-h-[120px] md:min-h-[220px] flex items-center">
-                <span className="bg-gradient-to-r from-primary to-primary-deep bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--primary-deep))] bg-clip-text text-transparent">
                   {displayedText}
                 </span>
               </h1>
