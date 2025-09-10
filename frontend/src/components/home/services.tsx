@@ -1,4 +1,5 @@
-import { Activity, Heart, RotateCcw, Plus, Phone } from "lucide-react";
+import { Activity, Heart, RotateCcw, Plus, Phone, Check, ArrowRight } from "lucide-react";
+import { motion, type Variants, type TargetAndTransition } from "framer-motion";
 
 const Services = () => {
   const mainServices = [
@@ -12,152 +13,232 @@ const Services = () => {
         "Pain Management",
         "Joint Mobilization",
       ],
-      bgColor: "from-[#DDF1FC] to-[#E5F0FA]",
-      iconColor: "bg-[#DDF1FC] text-[#0044A3]"
+      bgColor: "bg-gradient-to-br from-[#EBF5FF] to-white",
+      iconColor: "bg-[#DDEAFC] text-[#0044A3]",
+      borderColor: "border-[#DDEAFC]",
+      bulletColor: "bg-[#0044A3]",
     },
     {
       icon: RotateCcw,
       title: "Rehabilitation Programs",
-      description: "Post-surgery recovery, neurological rehab, and sports injury rehabilitation",
+      description:
+        "Post-surgery recovery, neurological rehab, and sports injury rehabilitation",
       features: [
         "Post Surgery Recovery",
         "Neurological Rehab",
-        "Sports Injury",
+        "Sports Injury Rehab",
         "Functional Training",
       ],
-      bgColor: "from-[#E6F7F5] to-[#E5F2F1]",
-      iconColor: "bg-[#E6F7F5] text-[#008D7D]"
+      bgColor: "bg-gradient-to-br from-[#E6F7F5] to-white",
+      iconColor: "bg-[#D3F0ED] text-[#008D7D]",
+      borderColor: "border-[#D3F0ED]",
+      bulletColor: "bg-[#008D7D]",
     },
     {
       icon: Heart,
       title: "Wellness & Preventive Care",
-      description: "Physiotherapy, Pilates, lifestyle correction and fitness routines",
+      description:
+        "Physiotherapy, Pilates, lifestyle correction and fitness routines",
       features: [
         "Pilates Classes",
         "Fitness Programs",
         "Lifestyle Correction",
         "Preventive Care",
       ],
-      bgColor: "from-[#F0F7FF] to-[#E5F0FA]",
-      iconColor: "bg-[#EBF5FF] text-[#5492DD]"
-    }
+      bgColor: "bg-gradient-to-br from-[#FEF6E6] to-white",
+      iconColor: "bg-[#FCE9C9] text-[#D97706]",
+      borderColor: "border-[#FCE9C9]",
+      bulletColor: "bg-[#D97706]",
+    },
   ];
 
   const additionalServices = [
     {
       title: "Pediatric Physiotherapy",
-      description: "Specialized care for children with developmental delays and conditions"
+      description:
+        "Specialized care for children with developmental delays and conditions",
     },
     {
       title: "Geriatric Care",
-      description: "Specialized programs for elderly patients to improve mobility and independence"
+      description:
+        "Specialized programs for elderly patients to improve mobility and independence",
     },
     {
       title: "Workplace Ergonomics",
-      description: "Assessments and interventions to prevent workplace injuries"
+      description:
+        "Assessments and interventions to prevent workplace injuries",
     },
     {
       title: "Travel Care",
-      description: "Pre and post-travel physiotherapy for frequent travelers"
-    }
+      description: "Pre and post-travel physiotherapy for frequent travelers",
+    },
   ];
 
+  // --- Animation Variants ---
+  const sectionVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+  };
+
+  const fadeInUp: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: "easeOut" },
+    },
+  };
+
+  const cardHover: TargetAndTransition = {
+    y: -10,
+    boxShadow: "0px 25px 50px -12px rgba(0, 68, 163, 0.25)",
+    transition: { 
+      duration: 0.3,
+      ease: [0.16, 1, 0.3, 1],
+      type: "tween"
+    }
+  };
+
   return (
-    <section id="services" className="py-20 bg-white">
+    <motion.section
+      id="services"
+      className="py-24 bg-white overflow-hidden"
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+    >
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-[#1C1D0E] mb-6 font-acumin">
+        <motion.div className="text-center mb-20" variants={fadeInUp}>
+          <h2 className="text-4xl lg:text-5xl font-bold text-[#1C1D0E] mb-6 font-acumin">
             Our Comprehensive{" "}
             <span className="bg-gradient-to-r from-[#5492DD] to-[#0044A3] bg-clip-text text-transparent">
               Services
             </span>
           </h2>
-          <p className="text-lg text-[#1C1D0E]/80 max-w-3xl mx-auto font-opensans">
+          <p className="text-lg text-[#1C1D0E]/80 max-w-3xl mx-auto font-opensans leading-relaxed">
             Expert care tailored to your unique needs and recovery goals
           </p>
-        </div>
+        </motion.div>
 
         {/* Main Services */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {mainServices.map((service, index) => (
-            <div
+            <motion.div
               key={index}
-              className={`p-8 rounded-2xl bg-gradient-to-br ${service.bgColor} border border-[#E5E4E2] hover:shadow-md transition-shadow`}
+              className={`p-8 rounded-2xl ${service.bgColor} border ${service.borderColor} shadow-lg flex flex-col`}
+              variants={fadeInUp}
+              whileHover={cardHover}
             >
-              <div className={`w-16 h-16 rounded-2xl ${service.iconColor} flex items-center justify-center mb-6`}>
-                <service.icon className="w-6 h-6" />
+              <div
+                className={`w-16 h-16 rounded-2xl ${service.iconColor} flex items-center justify-center mb-6 shrink-0`}
+              >
+                <service.icon className="w-8 h-8" />
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-[#1C1D0E] font-acumin">
-                {service.title}
-              </h3>
-              <p className="text-[#1C1D0E]/80 mb-4 font-opensans">{service.description}</p>
-              <ul className="space-y-2 mb-6">
-                {service.features.map((feature, i) => (
-                  <li key={i} className="flex items-center text-sm text-[#1C1D0E]/80 font-opensans">
-                    <span className={`w-1.5 h-1.5 rounded-full ${index === 1 ? 'bg-[#008D7D]' : 'bg-[#0044A3]'} mr-2`}></span>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <button className="flex items-center text-[#0044A3] font-medium hover:text-[#003380] transition-colors group font-opensans">
-                Learn more
-                <Plus className="ml-2 w-4 h-4 group-hover:rotate-90 transition-transform" />
-              </button>
-            </div>
+              <div className="flex flex-col flex-grow">
+                <h3 className="text-2xl font-semibold mb-3 text-[#1C1D0E] font-acumin">
+                  {service.title}
+                </h3>
+                <p className="text-[#1C1D0E]/80 mb-6 font-opensans flex-grow">
+                  {service.description}
+                </p>
+                <ul className="space-y-3 mb-8">
+                  {service.features.map((feature, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center text-[#1C1D0E]/90 font-opensans"
+                    >
+                      <span
+                        className={`w-5 h-5 rounded-full ${service.bulletColor}/20 text-[${service.bulletColor}] flex items-center justify-center mr-3 shrink-0`}
+                      >
+                        <Check className={`w-3 h-3 ${service.bulletColor}`} />
+                      </span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <motion.button
+                  className="mt-auto flex items-center text-[#0044A3] font-semibold hover:text-[#003380] transition-colors group font-opensans"
+                  whileHover={{ gap: "12px" }}
+                >
+                  Learn more
+                  <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </motion.button>
+              </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Additional Services */}
-        <div className="text-center mb-16">
-          <h3 className="text-2xl font-semibold text-[#1C1D0E] mb-4 font-acumin">
+        <motion.div className="text-center mb-20" variants={fadeInUp}>
+          <h3 className="text-3xl font-semibold text-[#1C1D0E] mb-4 font-acumin">
             Additional Specialized Services
           </h3>
-          <p className="text-[#1C1D0E]/80 max-w-2xl mx-auto font-opensans mb-8">
-            We offer a range of specialized therapies to address your specific needs
+          <p className="text-[#1C1D0E]/80 max-w-2xl mx-auto font-opensans mb-10">
+            We offer a range of specialized therapies to address your specific
+            needs
           </p>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {additionalServices.map((service, index) => (
-              <div 
+              <motion.div
                 key={index}
-                className="p-6 rounded-xl border border-[#E5E4E2] bg-white hover:shadow-sm transition-shadow"
+                className="p-6 rounded-xl border border-gray-200 bg-white shadow-md text-left"
+                whileHover={{
+                  y: -5,
+                  boxShadow: "0px 10px 20px -5px rgba(0, 0, 0, 0.1)",
+                }}
               >
-                <div className="w-12 h-12 rounded-xl bg-[#F5F9FF] flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-xl bg-blue-100/50 flex items-center justify-center mb-4">
                   <Plus className="w-5 h-5 text-[#0044A3]" />
                 </div>
-                <h4 className="font-semibold text-[#1C1D0E] mb-2 font-acumin">{service.title}</h4>
-                <p className="text-sm text-[#1C1D0E]/80 font-opensans">{service.description}</p>
-              </div>
+                <h4 className="font-semibold text-[#1C1D0E] mb-2 font-acumin">
+                  {service.title}
+                </h4>
+                <p className="text-sm text-[#1C1D0E]/80 font-opensans">
+                  {service.description}
+                </p>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* CTA Section */}
-        <div className="bg-gradient-to-r from-[#0044A3] to-[#5492DD] text-white rounded-2xl p-8 max-w-6xl mx-auto">
+        <motion.div
+          className="bg-gradient-to-r from-[#0044A3] to-[#5492DD] text-white rounded-2xl p-10 max-w-6xl mx-auto shadow-2xl"
+          variants={fadeInUp}
+        >
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="text-center lg:text-left">
-              <h3 className="text-2xl font-bold mb-3 font-acumin">
+              <h3 className="text-3xl font-bold mb-3 font-acumin">
                 Ready to Begin Your Recovery Journey?
               </h3>
-              <p className="text-white/90 font-opensans">
-                Book a comprehensive assessment with our expert physiotherapists today.
+              <p className="text-white/90 font-opensans max-w-2xl">
+                Book a comprehensive assessment with our expert physiotherapists
+                today.
               </p>
             </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <button className="px-6 py-3 bg-white text-[#0044A3] hover:bg-white/90 font-semibold rounded-lg transition-colors font-opensans">
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto shrink-0">
+              <motion.button
+                className="px-8 py-4 bg-white text-[#0044A3] font-semibold rounded-lg shadow-md transition-all duration-300"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 Book Assessment
-              </button>
-              <button className="px-6 py-3 bg-transparent hover:bg-white/10 text-white border border-white/20 font-semibold rounded-lg transition-colors flex items-center justify-center gap-2 font-opensans">
-                <Phone className="w-4 h-4" />
+              </motion.button>
+              <motion.button
+                className="px-8 py-4 bg-transparent hover:bg-white/10 text-white border-2 border-white/50 font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Phone className="w-5 h-5" />
                 Call Now
-              </button>
+              </motion.button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

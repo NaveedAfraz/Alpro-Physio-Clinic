@@ -1,5 +1,62 @@
-import { Card } from "../ui/card";
-import { Star, Quote } from "lucide-react";
+import { Star, Quote, ArrowRight } from "lucide-react";
+import { motion, useInView, type Variants, animate } from "framer-motion";
+import { useEffect, useRef, type FC } from "react";
+
+// --- Reusable Animated Number Components ---
+interface AnimatedNumberProps {
+  to: number;
+  isInView: boolean;
+  isFloat?: boolean; // To handle decimal numbers
+}
+
+const AnimatedStatistic: FC<{ to: number; suffix?: string; isFloat?: boolean }> = ({ to, suffix = "", isFloat = false }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  
+  return (
+    <div ref={ref} className="font-bold mb-2">
+      <AnimatedNumber to={to} isInView={isInView} isFloat={isFloat} />
+      {suffix}
+    </div>
+  );
+};
+
+const AnimatedNumber: FC<AnimatedNumberProps> = ({ to, isInView, isFloat }) => {
+    const nodeRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        if (!isInView) return;
+        const node = nodeRef.current;
+        if (!node) return;
+
+        const controls = animate(0, to, {
+            duration: 2.5,
+            ease: "easeOut",
+            onUpdate(value) {
+                if (isFloat) {
+                    node.textContent = value.toFixed(1); // Format for one decimal place
+                } else {
+                    node.textContent = Math.round(value).toLocaleString();
+                }
+            },
+        });
+        
+        return () => controls.stop();
+    }, [to, isInView, isFloat]);
+
+    return <span ref={nodeRef}>0</span>;
+}
+
+// --- Reusable Avatar Component ---
+const Avatar: FC<{ name: string }> = ({ name }) => {
+    const initials = name.split(' ').map(n => n[0]).join('');
+    return (
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#5492DD] to-[#0044A3] flex items-center justify-center text-white font-semibold text-lg">
+            {initials}
+        </div>
+    );
+};
+
 
 const Testimonials = () => {
   const testimonials = [
@@ -37,144 +94,124 @@ const Testimonials = () => {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`w-4 h-4 ${
-          i < rating ? "text-accent fill-accent" : "text-gray-300"
-        }`}
+        className={`w-5 h-5 ${i < rating ? "text-[#FFB800] fill-[#FFB800]" : "text-gray-300"}`}
       />
     ));
   };
 
+  // --- Animation Variants ---
+  const sectionVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+  };
+
+  const fadeInUp: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  };
+
+  const cardHover = {
+    y: -8,
+    boxShadow: "0px 20px 40px -10px rgba(0, 68, 163, 0.2)",
+    transition: { duration: 0.3 },
+  };
+
+
   return (
-    <section id="testimonials" className="py-20 bg-gradient-to-br from-light-blue/30 to-white">
+    <motion.section 
+        id="testimonials" 
+        className="py-24 bg-gradient-to-b from-white to-[#F9FAFB] overflow-hidden"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+    >
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-up">
-          <h2 className="text-headline font-bold text-foreground mb-6">
-            Testimonials
+        <motion.div className="text-center mb-20" variants={fadeInUp}>
+          <h2 className="text-4xl lg:text-5xl font-bold text-[#1C1D0E] mb-6 font-acumin">
+            Patient <span className="bg-gradient-to-r from-[#5492DD] to-[#0044A3] bg-clip-text text-transparent">Testimonials</span>
           </h2>
-          <div className="w-24 h-1 bg-accent mx-auto mb-8"></div>
-          <p className="text-body-large text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg text-[#1C1D0E]/80 max-w-3xl mx-auto font-opensans leading-relaxed">
             Real stories from patients who found healing and restored their quality of life with Alpro Physio Clinic.
           </p>
-        </div>
+        </motion.div>
 
         {/* Success Stories Statistics */}
-        <div className="text-center mb-16 animate-scale-in">
-          <Card className="p-8 bg-white shadow-medium border-0 max-w-4xl mx-auto">
+        <motion.div className="text-center mb-20" variants={fadeInUp}>
+          <div className="p-10 bg-white rounded-2xl border border-gray-200 shadow-xl max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8">
-              <div>
-                <div className="text-4xl font-bold text-primary mb-2">98%</div>
-                <div className="text-muted-foreground">Patient Satisfaction</div>
+              <div className="text-4xl lg:text-5xl font-acumin text-[#0044A3]">
+                <AnimatedStatistic to={98} suffix="%" />
+                <div className="text-base text-[#1C1D0E]/80 font-opensans mt-2">Patient Satisfaction</div>
               </div>
-              <div>
-                <div className="text-4xl font-bold text-accent mb-2">15,000+</div>
-                <div className="text-muted-foreground">Success Stories</div>
+              <div className="text-4xl lg:text-5xl font-acumin text-[#008D7D]">
+                <AnimatedStatistic to={15000} suffix="+" />
+                <div className="text-base text-[#1C1D0E]/80 font-opensans mt-2">Success Stories</div>
               </div>
-              <div>
-                <div className="text-4xl font-bold text-teal mb-2">4.9/5</div>
-                <div className="text-muted-foreground">Average Rating</div>
+              <div className="text-4xl lg:text-5xl font-acumin text-[#5492DD]">
+                 <AnimatedStatistic to={4.9} suffix="/5" isFloat={true} />
+                <div className="text-base text-[#1C1D0E]/80 font-opensans mt-2">Average Rating</div>
               </div>
             </div>
-          </Card>
-        </div>
+          </div>
+        </motion.div>
 
         {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 gap-8 mb-20">
           {testimonials.map((testimonial, index) => (
-            <Card 
+            <motion.div 
               key={index} 
-              className={`p-8 bg-white border-0 shadow-soft hover-lift hover:shadow-medium transition-all duration-300 ${
-                index % 2 === 0 ? 'animate-slide-in-left' : 'animate-slide-in-right'
-              }`}
+              className="p-8 bg-white rounded-2xl border border-gray-200 shadow-lg relative overflow-hidden"
+              variants={fadeInUp}
+              whileHover={cardHover}
             >
-              <div className="mb-6">
-                <Quote className="w-8 h-8 text-primary/20 mb-4" />
-                <p className="text-muted-foreground leading-relaxed text-lg italic">
-                  "{testimonial.testimonial}"
+              <Quote className="w-20 h-20 text-gray-100 absolute -top-4 -left-4 z-0" />
+              <div className="relative z-10">
+                <p className="text-[#1C1D0E]/80 leading-relaxed text-lg font-opensans mb-6">
+                  {testimonial.testimonial}
                 </p>
-              </div>
-              
-              <div className="border-t border-gray-light pt-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="font-semibold text-foreground text-lg">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-sm text-primary font-medium">
-                      {testimonial.condition}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {testimonial.location}
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-center gap-1">
-                    {renderStars(testimonial.rating)}
+                <div className="border-t border-gray-200 pt-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <Avatar name={testimonial.name} />
+                        <div>
+                            <h4 className="font-semibold text-[#1C1D0E] text-lg font-acumin">
+                                {testimonial.name}
+                            </h4>
+                            <p className="text-sm text-[#0044A3] font-medium font-opensans">
+                                {testimonial.condition}
+                            </p>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-1 shrink-0">
+                      {renderStars(testimonial.rating)}
+                    </div>
                   </div>
                 </div>
               </div>
-            </Card>
+            </motion.div>
           ))}
         </div>
 
-        {/* Featured Patient Story */}
-        <div className="animate-fade-up">
-          <Card className="p-8 bg-gradient-to-r from-teal to-primary text-white border-0 shadow-strong">
-            <div className="text-center mb-8">
-              <Quote className="w-12 h-12 text-white/30 mx-auto mb-6" />
-              <blockquote className="text-xl font-medium leading-relaxed mb-6">
-                "After my surgery, Alpro's rehab program gave me back my mobility in weeks!" 
-              </blockquote>
-              <cite className="text-lg">
-                <strong>– International Patient</strong>
-              </cite>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h3 className="text-2xl font-bold mb-4">Join Thousands of Satisfied Patients</h3>
-                <p className="text-white/90 mb-6">
-                  Experience the same level of care that has helped patients from around the world 
-                  recover faster and live better lives.
-                </p>
-                <button className="px-8 py-3 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold rounded-md transition-colors hover-lift">
-                  Share Your Success Story
-                </button>
-              </div>
-              
-              <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
-                <h4 className="text-lg font-semibold mb-4">What Our Patients Say:</h4>
-                <ul className="space-y-2 text-white/90">
-                  <li>• "Professional and caring staff"</li>
-                  <li>• "Modern facilities and equipment"</li>
-                  <li>• "Effective treatment results"</li>
-                  <li>• "Globally trusted healthcare"</li>
-                  <li>• "Personalized care approach"</li>
-                </ul>
-              </div>
-            </div>
-          </Card>
-        </div>
-
         {/* Call to Action */}
-        <div className="text-center mt-16 animate-scale-in">
-          <h3 className="text-2xl font-bold text-foreground mb-4">
-            Ready to Write Your Success Story?
-          </h3>
-          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join the thousands who have experienced life-changing results with our comprehensive physiotherapy programs.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-primary hover:bg-primary-deep text-white font-semibold rounded-md transition-colors hover-lift">
+        <motion.div className="text-center" variants={fadeInUp}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+             <h3 className="text-2xl font-bold text-[#1C1D0E] font-acumin">
+                Ready to Write Your Success Story?
+            </h3>
+            <motion.button 
+                className="px-8 py-4 bg-[#0044A3] hover:bg-[#003380] text-white font-semibold rounded-lg shadow-md transition-colors duration-300 font-opensans flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+            >
               Book Your Consultation
-            </button>
-            <button className="px-8 py-3 bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold rounded-md transition-colors hover-lift">
-              Read More Stories
-            </button>
+              <ArrowRight className="w-5 h-5" />
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

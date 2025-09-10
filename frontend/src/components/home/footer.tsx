@@ -1,147 +1,206 @@
-import { Heart, MapPin, Phone, Mail, Clock } from "lucide-react";
+import {
+  Heart,
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Twitter,
+  Instagram,
+  Facebook,
+  Linkedin,
+  ArrowUp,
+} from "lucide-react";
+import { motion, type Variants } from "framer-motion";
 
 const Footer = () => {
+  const socialLinks = [
+    { icon: Facebook, href: "#" },
+    { icon: Instagram, href: "#" },
+    { icon: Twitter, href: "#" },
+    { icon: Linkedin, href: "#" },
+  ];
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // --- Animation Variants ---
+  const sectionVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+  };
+
+  const fadeInUp: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: "easeOut" },
+    },
+  };
+
   return (
-    <footer className="bg-primary-deep bg-black text-white">
+    <motion.footer
+      className="bg-[#0F172A] text-white font-opensans"
+      variants={sectionVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+    >
       {/* Main Footer */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="container mx-auto px-4 py-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Company Info */}
-          <div className="lg:col-span-2">
+          <motion.div className="lg:col-span-2" variants={fadeInUp}>
             <div className="mb-6">
-              <div className="text-3xl font-bold mb-4">
+              <h3 className="text-3xl font-bold font-acumin mb-4">
                 <span className="text-white">ALPRO</span>
-                <span className="text-accent ml-1">PHYSIO</span>
-              </div>
-              <p className="text-white/80 leading-relaxed mb-6 max-w-md">
-                Healthcare that the world trusts – now in Shivpuri. Premium physiotherapy, 
-                rehabilitation, and wellness solutions designed to heal, restore, and empower.
+                <span className="text-[#5492DD] ml-1">PHYSIO</span>
+              </h3>
+              <p className="text-gray-400 leading-relaxed mb-6 max-w-md">
+                Healthcare that the world trusts – now in Shivpuri. Premium
+                physiotherapy, rehabilitation, and wellness solutions designed
+                to heal, restore, and empower.
               </p>
             </div>
 
-            {/* Contact Info */}
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <MapPin className="w-5 h-5 text-accent flex-shrink-0" />
-                <span className="text-white/90">
+            {/* Social Media Links */}
+            <div className="flex items-center gap-4">
+              {socialLinks.map((social, index) => (
+                <motion.a
+                  key={index}
+                  href={social.href}
+                  className="w-10 h-10 bg-gray-800 hover:bg-[#5492DD] text-gray-400 hover:text-white rounded-full flex items-center justify-center transition-all duration-300"
+                  whileHover={{ scale: 1.1, rotate: 360 }}
+                >
+                  <social.icon className="w-5 h-5" />
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+          {/* Services */}
+          <motion.div variants={fadeInUp}>
+            <h3 className="text-xl font-semibold mb-6 font-acumin">
+              Our Services
+            </h3>
+            <ul className="space-y-3">
+              {[
+                "Advanced Physiotherapy",
+                "Rehabilitation Programs",
+                "Wellness & Preventive Care",
+                "Specialized Care",
+                "Medical Tourism Support",
+                "Cupping Therapy",
+              ].map((service) => (
+                <li key={service}>
+                  <a
+                    href="#services"
+                    className="text-gray-400 hover:text-[#5492DD] transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <span className="w-1.5 h-1.5 bg-gray-600 group-hover:bg-[#5492DD] rounded-full transition-colors duration-300"></span>
+                    {service}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+          {/* Quick Links */}
+          <motion.div variants={fadeInUp}>
+            <h3 className="text-xl font-semibold mb-6 font-acumin">
+              Quick Links
+            </h3>
+            <ul className="space-y-3">
+              {[
+                "About Us",
+                "Services",
+                "Testimonials",
+                "Contact Us",
+                "Privacy Policy",
+                "Terms of Service",
+              ].map((link) => (
+                <li key={link}>
+                  <a
+                    href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
+                    className="text-gray-400 hover:text-[#5492DD] transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <span className="w-1.5 h-1.5 bg-gray-600 group-hover:bg-[#5492DD] rounded-full transition-colors duration-300"></span>
+                    {link}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+          {/* Contact Info */}
+          <motion.div variants={fadeInUp}>
+            <h3 className="text-xl font-semibold mb-6 font-acumin">
+              Contact Info
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-[#5492DD] flex-shrink-0 mt-1" />
+                <span className="text-gray-400">
                   40 No. Kothi Road, Jawahar Colony, Shivpuri, Madhya Pradesh
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-accent flex-shrink-0" />
-                <span className="text-white/90">+91 8770623310</span>
+                <Phone className="w-5 h-5 text-[#5492DD] flex-shrink-0" />
+                <a
+                  href="tel:+918770623310"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  +91 8770623310
+                </a>
               </div>
               <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-accent flex-shrink-0" />
-                <span className="text-white/90">info@alpro-physio.com</span>
+                <Mail className="w-5 h-5 text-[#5492DD] flex-shrink-0" />
+                <a
+                  href="mailto:info@alpro-physio.com"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  info@alpro-physio.com
+                </a>
               </div>
-              <div className="flex items-center gap-3">
-                <Clock className="w-5 h-5 text-accent flex-shrink-0" />
-                <span className="text-white/90">Mon-Sat: 7AM-9PM, Sun: 8AM-6PM</span>
+              <div className="flex items-start gap-3">
+                <Clock className="w-5 h-5 text-[#5492DD] flex-shrink-0 mt-1" />
+                <span className="text-gray-400">
+                  Mon-Sat: 7AM-9PM
+                  <br />
+                  Sun: 8AM-6PM
+                </span>
               </div>
             </div>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h3 className="text-xl font-semibold mb-6">Our Services</h3>
-            <ul className="space-y-3">
-              <li>
-                <a href="#services" className="text-white/80 hover:text-accent transition-colors">
-                  Advanced Physiotherapy
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="text-white/80 hover:text-accent transition-colors">
-                  Rehabilitation Programs
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="text-white/80 hover:text-accent transition-colors">
-                  Wellness & Preventive Care
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="text-white/80 hover:text-accent transition-colors">
-                  Specialized Care
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="text-white/80 hover:text-accent transition-colors">
-                  Medical Tourism Support
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="text-white/80 hover:text-accent transition-colors">
-                  Cupping Therapy
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-xl font-semibold mb-6">Quick Links</h3>
-            <ul className="space-y-3">
-              <li>
-                <a href="#about" className="text-white/80 hover:text-accent transition-colors">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="text-white/80 hover:text-accent transition-colors">
-                  Services
-                </a>
-              </li>
-              <li>
-                <a href="#testimonials" className="text-white/80 hover:text-accent transition-colors">
-                  Testimonials
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="text-white/80 hover:text-accent transition-colors">
-                  Contact Us
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white/80 hover:text-accent transition-colors">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white/80 hover:text-accent transition-colors">
-                  Terms of Service
-                </a>
-              </li>
-            </ul>
-          </div>
+          </motion.div>
         </div>
       </div>
-
       {/* Bottom Footer */}
-      <div className="border-t border-white/10">
+      <div className="border-t border-gray-800">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="text-white/70 text-sm">
+            <div className="text-gray-500 text-sm text-center md:text-left">
               © 2024 Alpro Physio Clinic. All rights reserved.
             </div>
-            
-            <div className="flex items-center gap-2 text-white/70 text-sm">
+            <div className="flex items-center gap-2 text-gray-500 text-sm">
               <span>Made with</span>
-              <Heart className="w-4 h-4 text-accent" />
+              <Heart className="w-4 h-4 text-[#5492DD]" />{" "}
               <span>for better healthcare in Shivpuri</span>
             </div>
           </div>
         </div>
       </div>
-
       {/* Floating Action Button */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <button className="w-14 h-14 bg-accent hover:bg-accent/90 text-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110">
-          <Phone className="w-6 h-6" />
-        </button>
-      </div>
-    </footer>
+      <motion.button
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#0044A3] hover:bg-[#5492DD] text-white rounded-full shadow-lg flex items-center justify-center transition-all"
+        onClick={scrollToTop}
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        whileHover={{ scale: 1.1, rotate: -15 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        aria-label="Scroll to top"
+      >
+        <ArrowUp className="w-6 h-6" />
+      </motion.button>
+    </motion.footer>
   );
 };
 
