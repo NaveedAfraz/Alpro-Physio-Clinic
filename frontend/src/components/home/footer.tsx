@@ -2,7 +2,7 @@ import { Heart, MapPin, Phone, Mail, Clock } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary-deep text-white">
+    <footer className="bg-primary-deep bg-black text-white">
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
