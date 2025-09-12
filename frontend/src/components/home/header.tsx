@@ -1,9 +1,8 @@
-"use client";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, MapPin } from "lucide-react";
 import { useNavigate, Link } from "react-router";
+import Alprologo from "../../assets/AlproLogo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -45,9 +44,13 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <div className="text-2xl font-bold cursor-pointer">
-              <span className="text-[#0044A3]">ALPRO</span>
-              <span className="text-[#008D7D] ml-1">PHYSIO</span>
+            {/* FIX: Replaced fixed width with responsive classes */}
+            <div className="w-42 md:w-60 h-16 cursor-pointer">
+              <img
+                src={Alprologo}
+                className="w-full h-full object-cover "
+                alt="Alpro Physio Logo"
+              />
             </div>
           </Link>
 
