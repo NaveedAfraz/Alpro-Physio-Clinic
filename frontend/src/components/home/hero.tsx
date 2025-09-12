@@ -225,17 +225,17 @@ const Hero = () => {
 
                 <div className="space-y-2">
                   <label
-                    htmlFor="email"
+                    htmlFor="Pincode"
                     className="text-lg font-semibold text-[#1C1D0E] font-opensans"
                   >
-                    Email Address
+                    Pincode
                   </label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 transition-colors duration-300 focus-within:text-[#5492DD]" />
                     <Input
-                      id="email"
-                      type="email"
-                      placeholder="you@example.com"
+                      id="Pincode"
+                      type="text"
+                      placeholder="123456"
                       className="h-12 text-md pl-10 border-2 border-[#E5E4E2] rounded-lg transition-all duration-300 focus:border-[#5492DD] focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
                     />
                   </div>
