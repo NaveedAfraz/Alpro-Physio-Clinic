@@ -4,20 +4,107 @@ import {
   ArrowRight,
   User,
   Phone,
-  Mail,
   Briefcase,
 } from "lucide-react";
-import { motion, type Variants } from "framer-motion"; // Import Variants type
+import { motion, type Variants } from "framer-motion";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import axios from "axios";
+import { toast } from "sonner";
 
 import { useEffect, useState } from "react";
 
+interface FormData {
+  fullName: string;
+  phone: string;
+  pincode: string;
+  service: string;
+}
+
 const Hero = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [formData, setFormData] = useState<FormData>({
+    fullName: "",
+    phone: "",
+    pincode: "",
+    service: "",
+  });
+  console.log(isSuccess);
+  console.log(isSubmitting);
+
   const words = ["Healthcare That the World Trusts", "Now in Shivpuri"];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { id, value } = e.target;
+    console.log(id, value);
+    setFormData((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    console.log(formData);
+    setIsSubmitting(true);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/appointments",
+        {
+          name: formData.fullName,
+
+          phone: formData.phone,
+
+          service: formData.service,
+          pincode: formData.pincode,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      if (response.data.success) {
+        setIsSuccess(true);
+        setIsSubmitting(false);
+        // Reset form
+        setFormData({
+          fullName: "",
+          phone: "",
+          pincode: "",
+          service: "",
+        });
+
+        toast.success("Your appointment has been booked successfully!");
+      }
+    } catch (error: any) {
+      console.error("Error booking appointment:", error);
+      let errorMessage = "Failed to book appointment. Please try again.";
+
+      if (error.response?.data?.errors) {
+        errorMessage = error.response.data.errors
+          .map((err: any) => `${err.field}: ${err.message}`)
+          .join("\n");
+      } else if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      }
+
+      toast.error(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     let typingSpeed = isDeleting ? 50 : 100;
@@ -185,7 +272,7 @@ const Hero = () => {
                   Get personalized treatment plans from certified therapists
                 </p>
               </div>
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={handleSubmit}>
                 {/* Form Fields with subtle hover/focus effects */}
                 <div className="space-y-2">
                   <label
@@ -199,6 +286,7 @@ const Hero = () => {
                     <Input
                       id="fullName"
                       type="text"
+                      onChange={handleInputChange}
                       placeholder="John Doe"
                       className="h-12 text-md pl-10 border-2 border-[#E5E4E2] rounded-lg transition-all duration-300 focus:border-[#5492DD] focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
                     />
@@ -217,6 +305,7 @@ const Hero = () => {
                     <Input
                       id="phone"
                       type="tel"
+                      onChange={handleInputChange}
                       placeholder="98765 43210"
                       className="h-12 text-md pl-10 border-2 border-[#E5E4E2] rounded-lg transition-all duration-300 focus:border-[#5492DD] focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
                     />
@@ -225,20 +314,20 @@ const Hero = () => {
 
                 <div className="space-y-2">
                   <label
-                    htmlFor="Pincode"
+                    htmlFor="pincode"
                     className="text-lg font-semibold text-[#1C1D0E] font-opensans"
                   >
-                    Pincode
+                    Pincode *
                   </label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 transition-colors duration-300 focus-within:text-[#5492DD]" />
-                    <Input
-                      id="Pincode"
-                      type="text"
-                      placeholder="123456"
-                      className="h-12 text-md pl-10 border-2 border-[#E5E4E2] rounded-lg transition-all duration-300 focus:border-[#5492DD] focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    id="pincode"
+                    value={formData.pincode}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5492DD] focus:border-transparent transition-all duration-200 font-opensans"
+                    placeholder="Enter your pincode"
+                    required
+                  />
                 </div>
 
                 <div className="space-y-2">
@@ -252,6 +341,7 @@ const Hero = () => {
                     <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                     <select
                       id="service"
+                      onChange={handleInputChange}
                       className="appearance-none w-full h-12 px-3 pl-10 border-2 border-[#E5E4E2] rounded-lg bg-white text-md transition-all duration-300 focus:border-[#5492DD] focus:outline-none focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
                       defaultValue=""
                     >

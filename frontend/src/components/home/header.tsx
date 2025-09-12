@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, MapPin } from "lucide-react";
 import { useNavigate, Link } from "react-router";
-import Alprologo from "../../assets/AlproLogo.png";
+import Alprologo from "../../assets/AlproLogo_11zon.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
