@@ -6,6 +6,7 @@ import WhyChoose from "../components/home/whyChoose";
 import Testimonials from "../components/home/testimonials";
 import Contact from "../components/home/contact";
 import Footer from "../components/home/footer";
+import { TeamSection } from "@/components/home/ourTeam";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <About />
       <Services />
       <WhyChoose />
+      <TeamSection />
       <Testimonials />
       <Contact />
       <Footer />

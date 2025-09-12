@@ -1,77 +1,79 @@
+"use client";
+
 import { useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, MapPin } from "lucide-react";
+import { useNavigate, Link } from "react-router";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
+    setIsMenuOpen(false);
+  };
 
   return (
-    <header className="bg-white/95 backdrop-blur-md border-b border-[#E5E4E2] sticky top-0 z-50 shadow-sm">
-      {/* Top Bar */}
+    <header className="bg-white/95 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+      {/* Top Bar - Reverted to Alpro Physio branding */}
       <div className="bg-[#0044A3] text-white py-2 px-4">
         <div className="container mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
-            <a href="tel:+918770623310" className="flex items-center gap-2 hover:text-[#DDF1FC] transition-colors">
+            <a href="tel:+918770623310" className="flex items-center gap-2 hover:text-blue-200 transition-colors">
               <Phone size={16} />
               <span className="font-medium">+91 8770623310</span>
             </a>
-            <div className="hidden md:flex items-center gap-2 text-[#DDF1FC]">
+             <div className="hidden md:flex items-center gap-2 text-blue-200">
               <MapPin size={16} />
-              <span>40 No. Kothi Road, Jawahar Colony, Shivpuri, Madhya Pradesh</span>
+              <span>40 No. Kothi Road, Shivpuri, Madhya Pradesh</span>
             </div>
           </div>
           <div className="hidden md:block">
-            <span className="font-semibold text-[#DDF1FC]">Trusted Healthcare • Now in Shivpuri</span>
+            <span className="font-semibold text-blue-200">Trusted Healthcare • Now in Shivpuri</span>
           </div>
         </div>
       </div>
 
-      {/* Enhanced Main Navigation */}
+      {/* Main Navigation */}
       <nav className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center">
+          <Link to="/" className="flex items-center">
             <div className="text-2xl font-bold cursor-pointer">
               <span className="text-[#0044A3]">ALPRO</span>
               <span className="text-[#008D7D] ml-1">PHYSIO</span>
             </div>
-          </a>
+          </Link>
 
-          {/* Enhanced Desktop Navigation */}
+          {/* Desktop Navigation - Updated Links */}
           <div className="hidden lg:flex items-center space-x-8">
-            <a href="#home" className="text-[#1C1D0E] hover:text-[#0044A3] transition-colors font-medium font-opensans relative group py-2">
+            <Link to="/" className="text-gray-700 hover:text-blue-600 transition-colors font-medium relative group py-2">
               Home
-              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-[#0044A3] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-            </a>
-            <a href="#about" className="text-[#1C1D0E] hover:text-[#0044A3] transition-colors font-medium font-opensans relative group py-2">
-              About Us
-              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-[#0044A3] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-            </a>
-            <a href="#services" className="text-[#1C1D0E] hover:text-[#0044A3] transition-colors font-medium font-opensans relative group py-2">
-              Services
-              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-[#0044A3] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-            </a>
-            <a href="#testimonials" className="text-[#1C1D0E] hover:text-[#0044A3] transition-colors font-medium font-opensans relative group py-2">
-              Testimonials
-              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-[#0044A3] transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-            </a>
-            <a href="#contact" className="bg-[#0044A3] hover:bg-[#003380] text-white px-6 py-2.5 rounded-lg font-medium font-opensans transition-colors shadow-md hover:shadow-lg">
-              Contact Us
-            </a>
+              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+            </Link>
+            <Link to="/cupping-therapy" className="text-gray-700 hover:text-blue-600 transition-colors font-medium relative group py-2">
+              Cupping Therapy
+              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+            </Link>
+            <Link to="/medical-tourism" className="text-gray-700 hover:text-blue-600 transition-colors font-medium relative group py-2">
+              Medical Tourism
+              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+            </Link>
+            <Button onClick={() => navigate('/contact')}>Contact Us</Button>
           </div>
 
-          {/* Enhanced CTA Button & Mobile Menu */}
+          {/* CTA Button & Mobile Menu Toggle */}
           <div className="flex items-center gap-4">
-            <Button variant="default" className="hidden md:flex bg-gradient-accent animate-gradient-x hover-glow relative overflow-hidden group">
-              <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-              <span className="relative z-10">Book Appointment</span>
+            <Button variant="default" className="hidden md:flex" onClick={() => navigate('/book-appointment')}>
+              Book Appointment
             </Button>
             <div className="lg:hidden">
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-[#1C1D0E] hover:bg-[#E5E4E2]"
+                className="text-gray-800 hover:bg-gray-100"
               >
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </Button>
@@ -79,46 +81,23 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Updated Links */}
         {isMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg rounded-b-lg py-4 px-6 border-t border-[#E5E4E2]">
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg rounded-b-lg py-4 px-6 border-t border-gray-200">
             <div className="flex flex-col space-y-4">
-              <a
-                href="#home"
-                className="text-[#1C1D0E] hover:text-[#0044A3] py-2 font-medium font-opensans transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
+              <Link to="/" className="text-gray-800 hover:text-blue-600 py-2 font-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
                 Home
-              </a>
-              <a
-                href="#about"
-                className="text-[#1C1D0E] hover:text-[#0044A3] py-2 font-medium font-opensans transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About Us
-              </a>
-              <a
-                href="#services"
-                className="text-[#1C1D0E] hover:text-[#0044A3] py-2 font-medium font-opensans transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Services
-              </a>
-              <a
-                href="#testimonials"
-                className="text-[#1C1D0E] hover:text-[#0044A3] py-2 font-medium font-opensans transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Testimonials
-              </a>
-              <a
-                href="#contact"
-                className="bg-[#0044A3] hover:bg-[#003380] text-white px-6 py-2.5 rounded-lg font-medium font-opensans text-center mt-4 transition-colors shadow-md hover:shadow-lg"
-                onClick={() => setIsMenuOpen(false)}
-              >
+              </Link>
+              <Link to="/cupping-therapy" className="text-gray-800 hover:text-blue-600 py-2 font-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
+                Cupping Therapy
+              </Link>
+              <Link to="/medical-tourism" className="text-gray-800 hover:text-blue-600 py-2 font-medium transition-colors" onClick={() => setIsMenuOpen(false)}>
+                Medical Tourism
+              </Link>
+              <Button className="w-full mt-4" onClick={() => handleNavigate('/contact')}>
                 Contact Us
-              </a>
-              <Button variant="default" className="bg-accent hover:bg-accent/90 mt-4">
+              </Button>
+              <Button variant="outline" className="w-full" onClick={() => handleNavigate('/book-appointment')}>
                 Book Appointment
               </Button>
             </div>
@@ -130,3 +109,4 @@ const Header = () => {
 };
 
 export default Header;
+

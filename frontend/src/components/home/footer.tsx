@@ -11,6 +11,7 @@ import {
   ArrowUp,
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
+import { Link } from "react-router";
 
 const Footer = () => {
   const socialLinks = [
@@ -93,13 +94,14 @@ const Footer = () => {
                 "Cupping Therapy",
               ].map((service) => (
                 <li key={service}>
-                  <a
-                    href="#services"
+                  {/* FIX: Changed <a> to <Link> and updated path */}
+                  <Link
+                    to="/#services"
                     className="text-gray-400 hover:text-[#5492DD] transition-colors duration-300 flex items-center gap-2 group"
                   >
                     <span className="w-1.5 h-1.5 bg-gray-600 group-hover:bg-[#5492DD] rounded-full transition-colors duration-300"></span>
                     {service}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -115,17 +117,16 @@ const Footer = () => {
                 "Services",
                 "Testimonials",
                 "Contact Us",
-                "Privacy Policy",
-                "Terms of Service",
               ].map((link) => (
                 <li key={link}>
-                  <a
-                    href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
+                  {/* FIX: Changed <a> to <Link> and updated path */}
+                  <Link
+                    to={`/#${link.toLowerCase().replace(/\s+/g, "-")}`}
                     className="text-gray-400 hover:text-[#5492DD] transition-colors duration-300 flex items-center gap-2 group"
                   >
                     <span className="w-1.5 h-1.5 bg-gray-600 group-hover:bg-[#5492DD] rounded-full transition-colors duration-300"></span>
                     {link}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -177,7 +178,7 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-gray-500 text-sm text-center md:text-left">
-              © 2024 Alpro Physio Clinic. All rights reserved.
+              © 2025 Alpro Physio Clinic. All rights reserved.
             </div>
             <div className="flex items-center gap-2 text-gray-500 text-sm">
               <span>Made with</span>

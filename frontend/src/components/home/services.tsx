@@ -1,4 +1,12 @@
-import { Activity, Heart, RotateCcw, Plus, Phone, Check, ArrowRight } from "lucide-react";
+import {
+  Activity,
+  Heart,
+  RotateCcw,
+  Plus,
+  Phone,
+  Check,
+  ArrowRight,
+} from "lucide-react";
 import { motion, type Variants, type TargetAndTransition } from "framer-motion";
 
 const Services = () => {
@@ -74,6 +82,30 @@ const Services = () => {
     },
   ];
 
+  // --- NEW DATA for "Conditions We Treat" section ---
+  const conditionsTreated = [
+    "Back Pain",
+    "Neck Pain",
+    "Slipped Disc",
+    "Sciatica",
+    "Pelvic Girdle Pain",
+    "Piriformis Syndrome",
+    "Pregnancy Back Pain",
+    "Stenosis",
+    "Facet Joint Arthropathy",
+    "Headaches With Neck Joint Pains",
+    "Coccydynia",
+    "Shoulder Injuries (Tendinitis, Frozen Shoulder)",
+    "Sports Injuries, Sprains, Tendon/Ligament Damage",
+    "Repetitive Strain Injuries (Tennis Elbow, Trigger Finger)",
+    "Migraine, Vertigo & Headaches",
+    "Stroke / Paralysis",
+    "Delayed Milestones in Infants",
+    "Cerebral Palsy & Muscular Dystrophy",
+    "Pelvic Pain & Incontinence",
+    "Prenatal & Postnatal Rehab (Back Pain, C-section Recovery)",
+  ];
+
   // --- Animation Variants ---
   const sectionVariants: Variants = {
     hidden: { opacity: 0 },
@@ -92,11 +124,11 @@ const Services = () => {
   const cardHover: TargetAndTransition = {
     y: -10,
     boxShadow: "0px 25px 50px -12px rgba(0, 68, 163, 0.25)",
-    transition: { 
+    transition: {
       duration: 0.3,
       ease: [0.16, 1, 0.3, 1],
-      type: "tween"
-    }
+      type: "tween",
+    },
   };
 
   return (
@@ -111,13 +143,13 @@ const Services = () => {
       <div className="container mx-auto px-4">
         {/* Header */}
         <motion.div className="text-center mb-20" variants={fadeInUp}>
-          <h2 className="text-4xl lg:text-5xl font-bold text-[#1C1D0E] mb-6 font-acumin">
+          <h2 className="text-4xl lg:text-5xl font-bold text-[#1C1D0E] mb-6">
             Our Comprehensive{" "}
             <span className="bg-gradient-to-r from-[#5492DD] to-[#0044A3] bg-clip-text text-transparent">
               Services
             </span>
           </h2>
-          <p className="text-lg text-[#1C1D0E]/80 max-w-3xl mx-auto font-opensans leading-relaxed">
+          <p className="text-lg text-[#1C1D0E]/80 max-w-3xl mx-auto leading-relaxed">
             Expert care tailored to your unique needs and recovery goals
           </p>
         </motion.div>
@@ -137,29 +169,28 @@ const Services = () => {
                 <service.icon className="w-8 h-8" />
               </div>
               <div className="flex flex-col flex-grow">
-                <h3 className="text-2xl font-semibold mb-3 text-[#1C1D0E] font-acumin">
+                <h3 className="text-2xl font-semibold mb-3 text-[#1C1D0E]">
                   {service.title}
                 </h3>
-                <p className="text-[#1C1D0E]/80 mb-6 font-opensans flex-grow">
+                <p className="text-[#1C1D0E]/80 mb-6 flex-grow">
                   {service.description}
                 </p>
                 <ul className="space-y-3 mb-8">
                   {service.features.map((feature, i) => (
-                    <li
-                      key={i}
-                      className="flex items-center text-[#1C1D0E]/90 font-opensans"
-                    >
+                    <li key={i} className="flex items-center text-[#1C1D0E]/90">
                       <span
-                        className={`w-5 h-5 rounded-full ${service.bulletColor}/20 text-[${service.bulletColor}] flex items-center justify-center mr-3 shrink-0`}
+                        className={`w-5 h-5 rounded-full ${service.bulletColor}/20 flex items-center justify-center mr-3 shrink-0`}
                       >
-                        <Check className={`w-3 h-3 ${service.bulletColor}`} />
+                        <Check
+                          className={`w-3 h-3 text-[${service.bulletColor}]`}
+                        />
                       </span>
                       {feature}
                     </li>
                   ))}
                 </ul>
                 <motion.button
-                  className="mt-auto flex items-center text-[#0044A3] font-semibold hover:text-[#003380] transition-colors group font-opensans"
+                  className="mt-auto flex items-center text-[#0044A3] font-semibold hover:text-[#003380] transition-colors group"
                   whileHover={{ gap: "12px" }}
                 >
                   Learn more
@@ -172,10 +203,10 @@ const Services = () => {
 
         {/* Additional Services */}
         <motion.div className="text-center mb-20" variants={fadeInUp}>
-          <h3 className="text-3xl font-semibold text-[#1C1D0E] mb-4 font-acumin">
+          <h3 className="text-3xl font-semibold text-[#1C1D0E] mb-4">
             Additional Specialized Services
           </h3>
-          <p className="text-[#1C1D0E]/80 max-w-2xl mx-auto font-opensans mb-10">
+          <p className="text-[#1C1D0E]/80 max-w-2xl mx-auto mb-10">
             We offer a range of specialized therapies to address your specific
             needs
           </p>
@@ -192,14 +223,42 @@ const Services = () => {
                 <div className="w-12 h-12 rounded-xl bg-blue-100/50 flex items-center justify-center mb-4">
                   <Plus className="w-5 h-5 text-[#0044A3]" />
                 </div>
-                <h4 className="font-semibold text-[#1C1D0E] mb-2 font-acumin">
+                <h4 className="font-semibold text-[#1C1D0E] mb-2">
                   {service.title}
                 </h4>
-                <p className="text-sm text-[#1C1D0E]/80 font-opensans">
+                <p className="text-sm text-[#1C1D0E]/80">
                   {service.description}
                 </p>
               </motion.div>
             ))}
+          </div>
+        </motion.div>
+
+        {/* --- NEW: Conditions We Treat Section --- */}
+        <motion.div className="mb-20" variants={fadeInUp}>
+          <div className="text-center">
+            <h3 className="text-3xl font-semibold text-[#1C1D0E] mb-4">
+              Conditions We Treat
+            </h3>
+            <p className="text-[#1C1D0E]/80 max-w-2xl mx-auto mb-10">
+              Our team is experienced in treating a wide array of
+              musculoskeletal and neurological conditions.
+            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {conditionsTreated.map((condition, index) => (
+                <div
+                  key={index}
+                  className="p-3 bg-slate-50 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <p className="text-sm text-gray-800 font-medium">
+                    {condition}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
 
@@ -210,10 +269,10 @@ const Services = () => {
         >
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="text-center lg:text-left">
-              <h3 className="text-3xl font-bold mb-3 font-acumin">
+              <h3 className="text-3xl font-bold mb-3">
                 Ready to Begin Your Recovery Journey?
               </h3>
-              <p className="text-white/90 font-opensans max-w-2xl">
+              <p className="text-white/90 max-w-2xl">
                 Book a comprehensive assessment with our expert physiotherapists
                 today.
               </p>
