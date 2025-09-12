@@ -133,7 +133,7 @@ const Hero = () => {
 
             <motion.div
               variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 mb-12"
+              className="flex flex-col xl:flex-row gap-4 mb-12"
             >
               <Button
                 asChild
