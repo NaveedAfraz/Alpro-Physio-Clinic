@@ -134,7 +134,7 @@ const Services = () => {
   return (
     <motion.section
       id="services"
-      className="py-24 bg-white overflow-hidden"
+      className="py-24  md:px-12  bg-white overflow-hidden"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"

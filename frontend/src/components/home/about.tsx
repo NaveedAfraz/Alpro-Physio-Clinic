@@ -131,7 +131,7 @@ const About = () => {
   return (
     <motion.section
       id="about"
-      className="py-24 bg-gradient-to-b from-[#DDF1FC] to-white overflow-hidden"
+      className="py-24  md:px-12  bg-gradient-to-b from-[#DDF1FC] to-white overflow-hidden"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
@@ -166,17 +166,18 @@ const About = () => {
                   className="text-lg leading-relaxed p-6 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-200 shadow-sm font-opensans text-[#1C1D0E]/90"
                   whileHover={{ scale: 1.02 }}
                 >
-                  Founded with the vision to deliver world-class healthcare in
-                  Shivpuri, Alpro integrates modern physiotherapy, Cupping
-                  therapy, Pilates and nutrition under one roof.
+                  At Alpro Physio Clinic, we are committed to restoring your
+                  movement and enhancing your quality of life. Our expert
+                  physiotherapists use advanced techniques and personalized care
+                  to help you heal faster.
                 </motion.p>
                 <motion.p
                   className="text-lg leading-relaxed p-6 rounded-xl bg-white/60 backdrop-blur-sm border border-gray-200 shadow-sm font-opensans text-[#1C1D0E]/90"
                   whileHover={{ scale: 1.02 }}
                 >
-                  Our mission is simple: combine evidence-based medical
-                  practices, advanced equipment, and compassionate care so that
-                  every patient feels secure, supported, and restored.
+                  Our mission is simple: combine evidence-based practice and
+                  compassionate care so that every patient feels secure,
+                  supported, and restored.
                 </motion.p>
               </div>
             </div>

@@ -51,7 +51,7 @@ export function TeamSection() {
   return (
     <motion.section
       id="team"
-      className="py-24 bg-slate-50"
+      className="py-24  md:px-12  bg-slate-50"
       variants={sectionVariants}
       initial="hidden"
       whileInView="visible"
@@ -89,7 +89,7 @@ export function TeamSection() {
               <p className="text-sm text-blue-600 font-semibold my-2 h-10">
                 {member.credentials}
               </p>
-              <p className="text-gray-600 leading-relaxed">{member.bio}</p>
+              <p className="text-gray-600 mt-6 leading-relaxed">{member.bio}</p>
             </motion.div>
           ))}
         </div>

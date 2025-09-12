@@ -83,7 +83,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-white to-[#DDF1FC]"
+      className="relative  md:px-12 min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-white to-[#DDF1FC]"
     >
       {/* Animated Background */}
       <div className="absolute inset-0 z-0 bg-[url('/grid-pattern.svg')] opacity-10">

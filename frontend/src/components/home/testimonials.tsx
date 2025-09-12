@@ -120,7 +120,7 @@ const Testimonials = () => {
   return (
     <motion.section 
         id="testimonials" 
-        className="py-24 bg-gradient-to-b from-white to-[#F9FAFB] overflow-hidden"
+        className="py-24  md:px-12  bg-gradient-to-b from-white to-[#F9FAFB] overflow-hidden"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
