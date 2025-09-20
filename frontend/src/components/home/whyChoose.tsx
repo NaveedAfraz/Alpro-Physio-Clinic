@@ -8,9 +8,10 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { LucideIcon } from "lucide-react";
-
+import down1 from "../../assets/down.png";
+import down2 from "../../assets/down2.jpg";
 // --- Reusable Animated Number Components ---
 
 // const AnimatedStatistic: FC<AnimatedStatisticProps> = ({ from = 0, to, suffix = "", prefix = "" }) => {
@@ -38,6 +39,16 @@ import type { LucideIcon } from "lucide-react";
 
 const WhyChoose = () => {
   const [expanded, setExpanded] = useState<number | false>(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Auto-slide effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % 2);
+    }, 5000); // Change slide every 5 seconds
+    
+    return () => clearInterval(interval);
+  }, []);
 
   const reasons: {
     icon: LucideIcon;
@@ -135,23 +146,70 @@ const WhyChoose = () => {
         </motion.div>
 
         {/* Core Reasons Section - Image and Accordion */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-24">
-          <motion.div
-            className="w-full h-96 lg:h-[600px] rounded-2xl bg-gray-200 relative overflow-hidden shadow-2xl"
+        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 items-center mb-24">
+          <motion.div 
+            className="w-full h-96 lg:h-[480px] rounded-2xl relative overflow-hidden shadow-2xl col-span-1"
             variants={fadeInUp}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#5492DD] to-[#0044A3]"></div>
-            <Users className="absolute -bottom-16 -right-16 w-80 h-80 text-white/10" />
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{
-                backgroundImage:
-                  "url('https://placehold.co/800x1200/0044A3/FFFFFF?text=Alpro+Clinic')",
-              }}
-            ></div>
-            <div className="absolute inset-0 bg-black/20"></div>
-            <div className="relative z-10 p-10 flex flex-col justify-end h-full text-white">
-              <h3 className="text-3xl font-bold font-acumin mb-4">
+            {/* Slider */}
+            <div className="relative w-full h-full">
+              {[down1, down2].map((slide, index) => (
+                <motion.div
+                  key={index}
+                  className={`absolute inset-0 w-full h-full ${index === 0 ? 'z-10' : 'z-0'}`}
+                  initial={{ opacity: index === 0 ? 1 : 0 }}
+                  animate={{ 
+                    opacity: currentSlide === index ? 1 : 0,
+                    scale: currentSlide === index ? 1 : 1.05
+                  }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <img 
+                    src={slide} 
+                    alt={`Slide ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+              ))}
+              
+              {/* Navigation Buttons */}
+              <button 
+                onClick={() => setCurrentSlide(prev => (prev - 1 + 2) % 2)}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-[#0044A3] flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110"
+                aria-label="Previous slide"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m15 18-6-6 6-6"/>
+                </svg>
+              </button>
+              <button 
+                onClick={() => setCurrentSlide(prev => (prev + 1) % 2)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-[#0044A3] flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110"
+                aria-label="Next slide"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m9 18 6-6-6-6"/>
+                </svg>
+              </button>
+              
+              {/* Dots Indicator */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                {[0, 1].map((dotIndex) => (
+                  <button
+                    key={dotIndex}
+                    onClick={() => setCurrentSlide(dotIndex)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      currentSlide === dotIndex ? 'bg-white w-8' : 'bg-white/50 w-3'
+                    }`}
+                    aria-label={`Go to slide ${dotIndex + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+            
+            {/* Overlay with text */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10 flex flex-col justify-end p-8">
+              <h3 className="text-3xl font-bold text-white font-acumin mb-4">
                 A Commitment to Excellence
               </h3>
               <p className="text-lg text-white/90 font-opensans">

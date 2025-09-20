@@ -11,7 +11,9 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import axios from "axios";
 import { toast } from "sonner";
-
+import top1 from "../../assets/top1.png"
+import top2 from "../../assets/top2.png"
+import top3 from "../../assets/top3.jpg"
 import { useEffect, useState } from "react";
 
 interface FormData {
@@ -37,6 +39,8 @@ const Hero = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = [top1, top2, top3];
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -106,6 +110,7 @@ const Hero = () => {
     }
   };
 
+  // Auto-typing effect for the heading
   useEffect(() => {
     let typingSpeed = isDeleting ? 50 : 100;
     const currentWord = words[currentWordIndex];
@@ -127,6 +132,15 @@ const Hero = () => {
 
     return () => clearInterval(typingInterval);
   }, [displayedText, isDeleting, currentWordIndex]);
+
+  // Auto-slide effect for the background images
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [slides.length]);
 
   // Animation Variants for Framer Motion with explicit types
   const containerVariants: Variants = {
@@ -170,23 +184,46 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative  md:px-12 min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-white to-[#DDF1FC]"
+      className="relative md:px-12 min-h-screen flex items-center overflow-hidden bg-white"
     >
-      {/* Animated Background */}
-      <div className="absolute inset-0 z-0 bg-[url('/grid-pattern.svg')] opacity-10">
-        <motion.div
-          className="absolute inset-0"
+      {/* Image Slider Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {slides.map((slide, index) => (
+          <motion.div
+            key={index}
+            className="absolute inset-0 flex items-center justify-center"
+            style={{
+              opacity: index === currentSlide ? 1 : 0,
+              transition: 'opacity 1s ease-in-out',
+              zIndex: 1,
+            }}
+            animate={{
+              opacity: index === currentSlide ? 0.7 : 0,
+              scale: index === currentSlide ? 1 : 1.1,
+            }}
+            transition={{
+              duration: 1.5,
+              ease: 'easeInOut',
+            }}
+          >
+            <img 
+              src={slide} 
+              alt="Background" 
+              className="min-h-full min-w-full object-cover"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
+            />
+          </motion.div>
+        ))}
+        {/* Overlay gradient */}
+        <div 
+          className="absolute inset-0 z-2"
           style={{
-            background: "linear-gradient(120deg, #DDF1FC 0%, #a4c9e1 100%)",
-            backgroundSize: "200% 200%",
-          }}
-          animate={{
-            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-          }}
-          transition={{
-            duration: 20,
-            ease: "linear",
-            repeat: Infinity,
+            background: 'linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.6) 100%)',
           }}
         />
       </div>
