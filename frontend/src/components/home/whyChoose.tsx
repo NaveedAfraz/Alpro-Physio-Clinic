@@ -148,7 +148,7 @@ const WhyChoose = () => {
         {/* Core Reasons Section - Image and Accordion */}
         <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 items-center mb-24">
           <motion.div 
-            className="w-full h-96 lg:h-[480px] rounded-2xl relative overflow-hidden shadow-2xl col-span-1"
+            className="w-full h-76 lg:h-[480px] rounded-2xl relative overflow-hidden shadow-2xl col-span-1"
             variants={fadeInUp}
           >
             {/* Slider */}
