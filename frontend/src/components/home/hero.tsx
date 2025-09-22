@@ -11,9 +11,9 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import axios from "axios";
 import { toast } from "sonner";
-import top1 from "../../assets/top1.png"
-import top2 from "../../assets/top2.png"
-import top3 from "../../assets/top3.jpg"
+import top1 from "../../assets/top1.png";
+import top2 from "../../assets/top2.png";
+import top3 from "../../assets/top3.jpg";
 import { useEffect, useState } from "react";
 
 interface FormData {
@@ -33,7 +33,6 @@ const Hero = () => {
     service: "",
   });
   console.log(isSuccess);
-  console.log(isSubmitting);
 
   const words = ["Healthcare That the World Trusts", "Now in Shivpuri"];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -48,7 +47,6 @@ const Hero = () => {
     >
   ) => {
     const { id, value } = e.target;
-    console.log(id, value);
     setFormData((prev) => ({
       ...prev,
       [id]: value,
@@ -57,45 +55,29 @@ const Hero = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    console.log(formData);
     setIsSubmitting(true);
-
     try {
       const response = await axios.post(
         "http://localhost:5000/api/appointments",
         {
           name: formData.fullName,
-
           phone: formData.phone,
-
           service: formData.service,
           pincode: formData.pincode,
         },
         {
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
         }
       );
-      console.log(response.data);
       if (response.data.success) {
         setIsSuccess(true);
-        setIsSubmitting(false);
-        // Reset form
-        setFormData({
-          fullName: "",
-          phone: "",
-          pincode: "",
-          service: "",
-        });
-
+        setFormData({ fullName: "", phone: "", pincode: "", service: "" });
         toast.success("Your appointment has been booked successfully!");
+      } else {
+        toast.error(response.data.message || "Failed to book appointment");
       }
     } catch (error: any) {
-      console.error("Error booking appointment:", error);
       let errorMessage = "Failed to book appointment. Please try again.";
-
       if (error.response?.data?.errors) {
         errorMessage = error.response.data.errors
           .map((err: any) => `${err.field}: ${err.message}`)
@@ -103,14 +85,13 @@ const Hero = () => {
       } else if (error.response?.data?.message) {
         errorMessage = error.response.data.message;
       }
-
       toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Auto-typing effect for the heading
+  // typing effect
   useEffect(() => {
     let typingSpeed = isDeleting ? 50 : 100;
     const currentWord = words[currentWordIndex];
@@ -131,116 +112,53 @@ const Hero = () => {
     }, typingSpeed);
 
     return () => clearInterval(typingInterval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayedText, isDeleting, currentWordIndex]);
 
-  // Auto-slide effect for the background images
+  // slide auto-advance
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000); // Change slide every 5 seconds
-
+    }, 4500);
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  // Animation Variants for Framer Motion with explicit types
+  // framer variants
   const containerVariants: Variants = {
-    // <-- FIX #1
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
+      transition: { staggerChildren: 0.14, delayChildren: 0.15 },
     },
   };
-
   const itemVariants: Variants = {
-    // <-- FIX #2
     hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeInOut", // Now TypeScript understands this is a valid Easing value
-      },
-    },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.6 } },
   };
-
   const formVariants: Variants = {
-    // <-- FIX #3
-    hidden: { scale: 0.95, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: {
-        duration: 0.7,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    },
+    hidden: { scale: 0.98, opacity: 0 },
+    visible: { scale: 1, opacity: 1, transition: { duration: 0.6 } },
   };
 
   return (
     <>
+      {/* HERO: left text + right boxed slider */}
       <section
         id="home"
-        className="relative md:px-12 pt-16 md:pt-24 pb-0 lg:pb-24 flex items-start lg:items-center min-h-[600px] md:min-h-[700px]"
+        className="relative pt-16 pb-10 lg:pb-20   bg-gradient-to-b from-[#DDF1FC] to-white"
       >
-        {/* Image Slider Background */}
-        <div className="absolute inset-0 z-0 overflow-hidden h-full">
-          {slides.map((slide, index) => (
-            <motion.div
-              key={index}
-              className="absolute inset-0 flex items-center justify-center"
-              style={{
-                opacity: index === currentSlide ? 1 : 0,
-                transition: 'opacity 1s ease-in-out',
-                zIndex: 1,
-              }}
-              animate={{
-                opacity: index === currentSlide ? 0.7 : 0,
-                scale: index === currentSlide ? 1 : 1.1,
-              }}
-              transition={{
-                duration: 1.5,
-                ease: 'easeInOut',
-              }}
-            >
-              <img 
-                src={slide} 
-                alt="Background" 
-                className="w-full h-full object-cover object-center"
-                style={{
-                  height: '100%',
-                  maxHeight: '800px',
-                  objectFit: 'cover',
-                  objectPosition: 'center'
-                }}
-              />
-            </motion.div>
-          ))}
-          {/* Overlay gradient */}
-          <div 
-            className="absolute inset-0 z-2"
-            style={{
-              background: 'linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.7) 100%)',
-            }}
-          />
-        </div>
-
-        <div className="container relative z-20 px-4 mx-auto max-w-7xl">
-          <div className="grid lg:grid-cols-2 gap-8 items-start">
-            {/* Left Side Content - Animated */}
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            {/* Left: typography + CTAs */}
             <motion.div
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="lg:pr-8"
+              className="order-1 lg:order-1"
             >
               <motion.h1
                 variants={itemVariants}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 min-h-[100px] md:min-h-[180px] flex items-center font-acumin"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
               >
                 <span className="bg-gradient-to-r from-[#5492DD] to-[#0044A3] bg-clip-text text-transparent">
                   {displayedText}
@@ -250,301 +168,196 @@ const Hero = () => {
 
               <motion.p
                 variants={itemVariants}
-                className="text-base md:text-lg text-[#1C1D0E]/80 mb-6 md:mb-8 max-w-lg leading-relaxed font-opensans"
+                className="text-lg text-gray-700 mb-6 max-w-lg"
               >
                 Premium physiotherapy, rehabilitation, cupping therapy &
-                alternative wellness solutions designed to heal, restore, and
-                empower.
+                wellness solutions designed to heal, restore, and empower.
               </motion.p>
 
               <motion.div
                 variants={itemVariants}
-                className="flex flex-col xl:flex-row gap-4 mb-8 lg:mb-0"
+                className="flex flex-col sm:flex-row gap-4"
               >
                 <Button
                   asChild
                   size="lg"
-                  className="group bg-[#0044A3] hover:bg-[#003380] text-white px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                  className="group bg-[#0044A3] hover:bg-[#003380] text-white px-6 py-3 text-lg font-semibold shadow"
                 >
-                  <motion.a href="#appointment">
-                    <Calendar className="mr-2" size={20} />
+                  <a href="#appointment">
+                    <Calendar className="mr-2 inline-block" size={18} />
                     Book Appointment
-                    <ArrowRight
-                      className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
-                      size={20}
-                    />
-                  </motion.a>
+                    <ArrowRight className="ml-2 inline-block" size={18} />
+                  </a>
                 </Button>
 
                 <Button
                   asChild
                   variant="outline"
-                  className="group border-2 border-[#008D7D] text-[#008D7D] hover:bg-[#008D7D] hover:text-white px-8 py-6 text-lg font-semibold transition-all duration-300 transform hover:-translate-y-1"
+                  className="group border-2 border-[#008D7D] text-[#008D7D] px-6 py-3 font-semibold"
                 >
-                  <motion.a href="#medical-tourism">
-                    <Globe className="mr-2" size={20} />
+                  <a href="#medical-tourism">
+                    <Globe className="mr-2 inline-block" size={18} />
                     Explore Medical Tourism
-                  </motion.a>
+                  </a>
                 </Button>
               </motion.div>
             </motion.div>
 
-            {/* Right Side Content (Form) - Visible only on large screens */}
-            <motion.div
-              variants={formVariants}
-              initial="hidden"
-              animate="visible"
-              className="hidden lg:block"
-            >
-              <div
-                id="appointment"
-                className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border border-gray-200"
-              >
-                <div className="text-center mb-4 md:mb-6">
-                  <h2 className="text-3xl font-bold text-[#1C1D0E] font-acumin">
-                    Book Your First{" "}
-                    <span className="bg-gradient-to-r from-[#5492DD] to-[#0044A3] bg-clip-text text-transparent">
-                      Free
-                    </span>{" "}
-                    Appointment
-                  </h2>
-                  <p className="text-[#1C1D0E]/80 mt-2 font-opensans">
-                    Get personalized treatment plans from certified therapists
-                  </p>
+            {/* Right: boxed slider (NOT full-width) */}
+            <div className="order-2 lg:order-2 flex justify-center lg:justify-end">
+              <div className="w-full max-w-md lg:max-w-2xl">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-100">
+                  {/* slider container (fixed aspect) */}
+                  <div className="w-full h-[340px] md:h-[420px] lg:h-[470px] bg-gray-100 relative">
+                    {slides.map((slide, index) => (
+                      <motion.img
+                        key={index}
+                        src={slide}
+                        alt={`slide-${index}`}
+                        className="absolute inset-0 w-full h-full object-contain"
+                        initial={{
+                          opacity: index === currentSlide ? 1 : 0,
+                          scale: index === currentSlide ? 1 : 1.03,
+                        }}
+                        animate={{
+                          opacity: index === currentSlide ? 1 : 0,
+                          scale: index === currentSlide ? 1 : 1.03,
+                        }}
+                        transition={{ duration: 0.9, ease: "easeInOut" }}
+                        style={{ willChange: "opacity, transform" }}
+                      />
+                    ))}
+
+                    {/* optional caption or small overlay */}
+                    <div className="absolute left-4 bottom-4 bg-black/40 text-white px-3 py-1 rounded-md text-sm">
+                      {currentSlide + 1}/{slides.length}
+                    </div>
+                  </div>
                 </div>
-                <form className="space-y-4" onSubmit={handleSubmit}>
-                  {/* Form Fields with subtle hover/focus effects */}
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="fullName"
-                      className="text-lg font-semibold text-[#1C1D0E] font-opensans"
-                    >
-                      Full Name
-                    </label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 transition-colors duration-300 focus-within:text-[#5492DD]" />
-                      <Input
-                        id="fullName"
-                        type="text"
-                        onChange={handleInputChange}
-                        placeholder="John Doe"
-                        className="h-12 text-md pl-10 border-2 border-[#E5E4E2] rounded-lg transition-all duration-300 focus:border-[#5492DD] focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="phone"
-                      className="text-lg font-semibold text-[#1C1D0E] font-opensans"
-                    >
-                      Phone Number
-                    </label>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 transition-colors duration-300 focus-within:text-[#5492DD]" />
-                      <Input
-                        id="phone"
-                        type="tel"
-                        onChange={handleInputChange}
-                        placeholder="98765 43210"
-                        className="h-12 text-md pl-10 border-2 border-[#E5E4E2] rounded-lg transition-all duration-300 focus:border-[#5492DD] focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="pincode"
-                      className="text-lg font-semibold text-[#1C1D0E] font-opensans"
-                    >
-                      Pincode *
-                    </label>
-                    <input
-                      type="text"
-                      id="pincode"
-                      value={formData.pincode}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5492DD] focus:border-transparent transition-all duration-200 font-opensans"
-                      placeholder="Enter your pincode"
-                      required
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="service"
-                      className="text-lg font-semibold text-[#1C1D0E] font-opensans"
-                    >
-                      Service
-                    </label>
-                    <div className="relative">
-                      <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                      <select
-                        id="service"
-                        onChange={handleInputChange}
-                        className="appearance-none w-full h-12 px-3 pl-10 border-2 border-[#E5E4E2] rounded-lg bg-white text-md transition-all duration-300 focus:border-[#5492DD] focus:outline-none focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
-                        defaultValue=""
-                      >
-                        <option value="" disabled>
-                          Select Service
-                        </option>
-                        <option value="physiotherapy">
-                          Advanced Physiotherapy
-                        </option>
-                        <option value="rehabilitation">
-                          Rehabilitation Programs
-                        </option>
-                        <option value="wellness">
-                          Wellness & Preventive Care
-                        </option>
-                        <option value="specialized">Specialized Care</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <Button
-                    type="submit"
-                    className="group w-full bg-[#0044A3] hover:bg-[#003380] text-white h-12 rounded-lg text-lg font-semibold transition-all duration-300 mt-6 flex items-center justify-center gap-2 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
-                  >
-                    Book Free Consultation
-                    <ArrowRight
-                      className="transition-transform duration-300 group-hover:translate-x-1"
-                      size={20}
-                    />
-                  </Button>
-                </form>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Form Section - Visible on small screens */}
-      <section className="lg:hidden bg-white py-12 px-4">
-        <div className="container mx-auto max-w-2xl">
+      {/* FORM: separate section below the hero (always visible) */}
+      <section id="appointment" className=" py-12 lg:py-16">
+        <div className="container mx-auto px-4 max-w-3xl">
           <motion.div
             variants={formVariants}
             initial="hidden"
             animate="visible"
+            className="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-200"
           >
-            <div
-              id="appointment-mobile"
-              className="bg-white p-6 rounded-2xl shadow-xl border border-gray-200"
-            >
-              <div className="text-center mb-4 md:mb-6">
-                <h2 className="text-3xl font-bold text-[#1C1D0E] font-acumin">
-                  Book Your First{" "}
-                  <span className="bg-gradient-to-r from-[#5492DD] to-[#0044A3] bg-clip-text text-transparent">
-                    Free
-                  </span>{" "}
-                  Appointment
-                </h2>
-                <p className="text-[#1C1D0E]/80 mt-2 font-opensans">
-                  Get personalized treatment plans from certified therapists
-                </p>
-              </div>
-              <form className="space-y-4" onSubmit={handleSubmit}>
-                {/* Form Fields with subtle hover/focus effects */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="fullName"
-                    className="text-lg font-semibold text-[#1C1D0E] font-opensans"
-                  >
-                    Full Name
-                  </label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 transition-colors duration-300 focus-within:text-[#5492DD]" />
-                    <Input
-                      id="fullName"
-                      type="text"
-                      onChange={handleInputChange}
-                      placeholder="John Doe"
-                      className="h-12 text-md pl-10 border-2 border-[#E5E4E2] rounded-lg transition-all duration-300 focus:border-[#5492DD] focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label
-                    htmlFor="phone"
-                    className="text-lg font-semibold text-[#1C1D0E] font-opensans"
-                  >
-                    Phone Number
-                  </label>
-                  <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 transition-colors duration-300 focus-within:text-[#5492DD]" />
-                    <Input
-                      id="phone"
-                      type="tel"
-                      onChange={handleInputChange}
-                      placeholder="98765 43210"
-                      className="h-12 text-md pl-10 border-2 border-[#E5E4E2] rounded-lg transition-all duration-300 focus:border-[#5492DD] focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label
-                    htmlFor="pincode"
-                    className="text-lg font-semibold text-[#1C1D0E] font-opensans"
-                  >
-                    Pincode *
-                  </label>
-                  <input
-                    type="text"
-                    id="pincode"
-                    value={formData.pincode}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#5492DD] focus:border-transparent transition-all duration-200 font-opensans"
-                    placeholder="Enter your pincode"
-                    required
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label
-                    htmlFor="service"
-                    className="text-lg font-semibold text-[#1C1D0E] font-opensans"
-                  >
-                    Service
-                  </label>
-                  <div className="relative">
-                    <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <select
-                      id="service"
-                      onChange={handleInputChange}
-                      className="appearance-none w-full h-12 px-3 pl-10 border-2 border-[#E5E4E2] rounded-lg bg-white text-md transition-all duration-300 focus:border-[#5492DD] focus:outline-none focus:ring-2 focus:ring-[#5492DD]/50 font-opensans"
-                      defaultValue=""
-                    >
-                      <option value="" disabled>
-                        Select Service
-                      </option>
-                      <option value="physiotherapy">
-                        Advanced Physiotherapy
-                      </option>
-                      <option value="rehabilitation">
-                        Rehabilitation Programs
-                      </option>
-                      <option value="wellness">
-                        Wellness & Preventive Care
-                      </option>
-                      <option value="specialized">Specialized Care</option>
-                    </select>
-                  </div>
-                </div>
-
-                <Button
-                  type="submit"
-                  className="group w-full bg-[#0044A3] hover:bg-[#003380] text-white h-12 rounded-lg text-lg font-semibold transition-all duration-300 mt-6 flex items-center justify-center gap-2 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
-                >
-                  Book Free Consultation
-                  <ArrowRight
-                    className="transition-transform duration-300 group-hover:translate-x-1"
-                    size={20}
-                  />
-                </Button>
-              </form>
+            <div className="text-center mb-6">
+              <h2 className="text-3xl font-bold">
+                Book Your First{" "}
+                <span className="bg-gradient-to-r from-[#5492DD] to-[#0044A3] bg-clip-text text-transparent">
+                  Free
+                </span>{" "}
+                Appointment
+              </h2>
+              <p className="text-gray-600 mt-2">
+                Get personalized treatment plans from certified therapists
+              </p>
             </div>
+
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              <div>
+                <label
+                  htmlFor="fullName"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Full Name
+                </label>
+                <div className="relative mt-1">
+                  <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Input
+                    id="fullName"
+                    type="text"
+                    value={formData.fullName}
+                    onChange={handleInputChange}
+                    placeholder="John Doe"
+                    className="pl-10 h-12"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Phone Number
+                </label>
+                <div className="relative mt-1">
+                  <Phone className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Input
+                    id="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="98765 43210"
+                    className="pl-10 h-12"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="pincode"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Pincode *
+                </label>
+                <input
+                  id="pincode"
+                  value={formData.pincode}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#5492DD]/40"
+                  placeholder="Enter your pincode"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="service"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Service
+                </label>
+                <div className="relative mt-1">
+                  <Briefcase className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <select
+                    id="service"
+                    onChange={handleInputChange}
+                    value={formData.service}
+                    className="appearance-none w-full h-12 pl-10 border rounded-lg"
+                  >
+                    <option value="" disabled>
+                      Select Service
+                    </option>
+                    <option value="physiotherapy">
+                      Advanced Physiotherapy
+                    </option>
+                    <option value="rehabilitation">
+                      Rehabilitation Programs
+                    </option>
+                    <option value="wellness">Wellness & Preventive Care</option>
+                    <option value="specialized">Specialized Care</option>
+                  </select>
+                </div>
+              </div>
+
+              <Button
+                type="submit"
+                className="w-full bg-[#0044A3] hover:bg-[#003380] text-white py-3 font-semibold"
+              >
+                {isSubmitting ? "Booking..." : "Book Free Consultation"}
+                <ArrowRight className="ml-2 inline-block" />
+              </Button>
+            </form>
           </motion.div>
         </div>
       </section>
