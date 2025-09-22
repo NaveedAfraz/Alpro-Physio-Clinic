@@ -187,7 +187,7 @@ const About = () => {
             <div className="grid grid-cols-2 gap-6">
               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200 text-center">
                 <div className="text-[#0044A3]">
-                  <AnimatedStatistic to={10} suffix="+" />
+                  <AnimatedStatistic to={2} suffix="+" />
                 </div>
                 <div className="text-md text-[#1C1D0E]/80 font-opensans">
                   Years Experience
@@ -195,7 +195,7 @@ const About = () => {
               </div>
               <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200 text-center">
                 <div className="text-[#008D7D]">
-                  <AnimatedStatistic to={5000} suffix="+" />
+                  <AnimatedStatistic to={1000} suffix="+" />
                 </div>
                 <div className="text-md text-[#1C1D0E]/80 font-opensans">
                   Patients Treated

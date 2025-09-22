@@ -67,7 +67,7 @@ const Header = () => {
               to="/cupping-therapy"
               className="text-gray-700 hover:text-blue-600 transition-colors font-medium relative group py-2"
             >
-              Cupping Therapy
+              Affilitated Courses
               <div className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
             </Link>
             <Link
@@ -123,7 +123,7 @@ const Header = () => {
                 className="text-gray-800 hover:text-blue-600 py-2 font-medium transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Cupping Therapy
+                Affilitated Courses
               </Link>
               <Link
                 to="/medical-tourism"
