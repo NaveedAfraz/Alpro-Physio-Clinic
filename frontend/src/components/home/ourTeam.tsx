@@ -1,23 +1,36 @@
 import { motion, type Variants } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+// Local images for team members
+import team1 from "@/assets/team1.jpeg";
+import team2 from "@/assets/team2.jpeg";
+import team3 from "@/assets/team3.jpeg";
+import team4 from "@/assets/team4.jpeg";
+
 // --- DATA for the "Our Team" section ---
 const teamMembers = [
+  // Head of Team - appears first
+  {
+    name: "Rahil Khan",
+    credentials:
+      "Rehab Specialist | Strength & Conditioning Coach (IUSCA) | Certified Cupping Therapist",
+    bio: "Rahil Khan specializes in rehabilitation therapy, strength and conditioning training, and cupping therapy techniques. With expertise in IUSCA certification and holistic healing practices, he provides comprehensive care for injury recovery and performance enhancement.",
+    imageUrl: team1,
+    initials: "RK",
+  },
   {
     name: "Dr. Zeeshan Ahmad",
     credentials:
       "MPT (Sports), Certified Strength & Conditioning Coach (Australia)",
     bio: "With international expertise in sports physiotherapy and athletic conditioning, Dr. Zeeshan Ahmad brings advanced skills in injury prevention, pain management, and performance-based rehabilitation.",
-    imageUrl:
-      "https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    imageUrl: team2,
     initials: "ZA",
   },
   {
     name: "Dr. Prashant",
     credentials: "MPT (Sports Physiotherapy), India",
     bio: "Dr. Prashant specializes in pediatric physiotherapy, neuro-rehabilitation, and functional movement assessment.",
-    imageUrl:
-      "https://images.pexels.com/photos/5407206/pexels-photo-5407206.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    imageUrl: team3,
     initials: "DP",
   },
   {
@@ -25,8 +38,7 @@ const teamMembers = [
     credentials:
       "Ph.D. in Counseling Psychology | Certified Special Educator | Life Skill Trainer – Riyadh",
     bio: "Dr. Shahana brings a holistic dimension to rehabilitation, integrating counseling psychology, life skills, and inclusive care practices into physiotherapy recovery.",
-    imageUrl:
-      "https://images.pexels.com/photos/5214993/pexels-photo-5214993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    imageUrl: team4,
     initials: "SP",
   },
 ];
@@ -77,7 +89,7 @@ export function TeamSection() {
               className="bg-white rounded-2xl shadow-lg overflow-hidden text-center p-8 border border-gray-100"
               variants={cardVariants}
             >
-              <Avatar className="w-32 h-32 mx-auto mb-6 border-4 border-blue-100 shadow-md">
+              <Avatar className="w-42 h-45 mx-auto mb-6 border-4 border-blue-100 shadow-md">
                 <AvatarImage src={member.imageUrl} alt={member.name} />
                 <AvatarFallback className="text-3xl bg-gray-200">
                   {member.initials}

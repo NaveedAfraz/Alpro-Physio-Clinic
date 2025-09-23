@@ -84,6 +84,14 @@ const Footer = () => {
             <h3 className="text-xl font-semibold mb-6 font-acumin">
               Our Services
             </h3>
+            <Link
+              to="/cupping-therapy"
+              className="text-gray-400 mb-3 hover:text-[#5492DD] transition-colors duration-300 flex items-center gap-2 group"
+            >
+              <span className="w-1.5 h-1.5 bg-gray-600 group-hover:bg-[#5492DD] rounded-full transition-colors duration-300"></span>
+              Affilitated Courses
+              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+            </Link>
             <ul className="space-y-3">
               {[
                 "Advanced Physiotherapy",
@@ -107,28 +115,26 @@ const Footer = () => {
             </ul>
           </motion.div>
           {/* Quick Links */}
+
           <motion.div variants={fadeInUp}>
             <h3 className="text-xl font-semibold mb-6 font-acumin">
               Quick Links
             </h3>
             <ul className="space-y-3">
-              {[
-                "About Us",
-                "Services",
-                "Testimonials",
-                "Contact Us",
-              ].map((link) => (
-                <li key={link}>
-                  {/* FIX: Changed <a> to <Link> and updated path */}
-                  <Link
-                    to={`/#${link.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="text-gray-400 hover:text-[#5492DD] transition-colors duration-300 flex items-center gap-2 group"
-                  >
-                    <span className="w-1.5 h-1.5 bg-gray-600 group-hover:bg-[#5492DD] rounded-full transition-colors duration-300"></span>
-                    {link}
-                  </Link>
-                </li>
-              ))}
+              {["About Us", "Services", "Testimonials", "Contact Us"].map(
+                (link) => (
+                  <li key={link}>
+                    {/* FIX: Changed <a> to <Link> and updated path */}
+                    <Link
+                      to={`/#${link.toLowerCase().replace(/\s+/g, "-")}`}
+                      className="text-gray-400 hover:text-[#5492DD] transition-colors duration-300 flex items-center gap-2 group"
+                    >
+                      <span className="w-1.5 h-1.5 bg-gray-600 group-hover:bg-[#5492DD] rounded-full transition-colors duration-300"></span>
+                      {link}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </motion.div>
           {/* Contact Info */}
