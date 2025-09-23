@@ -23,14 +23,14 @@ const teamMembers = [
     credentials:
       "MPT (Sports), Certified Strength & Conditioning Coach (Australia)",
     bio: "With international expertise in sports physiotherapy and athletic conditioning, Dr. Zeeshan Ahmad brings advanced skills in injury prevention, pain management, and performance-based rehabilitation.",
-    imageUrl: team2,
+    imageUrl: team4,
     initials: "ZA",
   },
   {
     name: "Dr. Prashant",
     credentials: "MPT (Sports Physiotherapy), India",
     bio: "Dr. Prashant specializes in pediatric physiotherapy, neuro-rehabilitation, and functional movement assessment.",
-    imageUrl: team3,
+    imageUrl: team2,
     initials: "DP",
   },
   {
@@ -38,7 +38,8 @@ const teamMembers = [
     credentials:
       "Ph.D. in Counseling Psychology | Certified Special Educator | Life Skill Trainer – Riyadh",
     bio: "Dr. Shahana brings a holistic dimension to rehabilitation, integrating counseling psychology, life skills, and inclusive care practices into physiotherapy recovery.",
-    imageUrl: team4,
+
+    imageUrl: team3,
     initials: "SP",
   },
 ];
