@@ -90,7 +90,7 @@ export function TeamSection() {
               className="bg-white rounded-2xl shadow-lg overflow-hidden text-center p-8 border border-gray-100"
               variants={cardVariants}
             >
-              <Avatar className="w-42 h-45 mx-auto mb-6 border-4 border-blue-100 shadow-md">
+              <Avatar className="w-42 h-50 mx-auto mb-6 border-4 border-blue-100 shadow-md">
                 <AvatarImage src={member.imageUrl} alt={member.name} />
                 <AvatarFallback className="text-3xl bg-gray-200">
                   {member.initials}
