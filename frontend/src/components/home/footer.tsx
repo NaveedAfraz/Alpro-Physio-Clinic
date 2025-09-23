@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { Link } from "react-router";
+import { Link as ScrollLink } from 'react-scroll';
 
 const Footer = () => {
   const socialLinks = [
@@ -24,6 +25,16 @@ const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  // const scrollToSection = (sectionId: string) => {
+  //   const element = document.getElementById(sectionId);
+  //   if (element) {
+  //     window.scrollTo({
+  //       top: element.offsetTop - 100,
+  //       behavior: 'smooth'
+  //     });
+  //   }
+  // };
 
   // --- Animation Variants ---
   const sectionVariants: Variants = {
@@ -121,19 +132,24 @@ const Footer = () => {
               Quick Links
             </h3>
             <ul className="space-y-3">
-              {["About Us", "Services", "Testimonials", "Contact Us"].map(
-                (link) => (
-                  <li key={link}>
-                    {/* FIX: Changed <a> to <Link> and updated path */}
-                    <Link
-                      to={`/#${link.toLowerCase().replace(/\s+/g, "-")}`}
-                      className="text-gray-400 hover:text-[#5492DD] transition-colors duration-300 flex items-center gap-2 group"
-                    >
-                      <span className="w-1.5 h-1.5 bg-gray-600 group-hover:bg-[#5492DD] rounded-full transition-colors duration-300"></span>
-                      {link}
-                    </Link>
-                  </li>
-                )
+              {["about", "services", "testimonials", "contact"].map(
+                (section) => {
+                  const displayName = section.charAt(0).toUpperCase() + section.slice(1);
+                  return (
+                    <li key={section}>
+                      <ScrollLink
+                        to={section}
+                        smooth={true}
+                        duration={500}
+                        offset={-100}
+                        className="text-gray-400 hover:text-[#5492DD] transition-colors duration-300 flex items-center gap-2 group cursor-pointer"
+                      >
+                        <span className="w-1.5 h-1.5 bg-gray-600 group-hover:bg-[#5492DD] rounded-full transition-colors duration-300"></span>
+                        {displayName}
+                      </ScrollLink>
+                    </li>
+                  );
+                }
               )}
             </ul>
           </motion.div>
