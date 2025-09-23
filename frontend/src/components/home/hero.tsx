@@ -32,6 +32,7 @@ const Hero = memo(() => {
     pincode: "",
     service: "",
   });
+  console.log(isSuccess);
 
   const words = useMemo(
     () => ["Healthcare That the World Trusts", "Now in Shivpuri"],
