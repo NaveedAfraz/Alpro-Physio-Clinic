@@ -1,13 +1,7 @@
 import { motion, type Variants } from "framer-motion";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import img1 from "../../assets/alproPro1.jpg";
 import img2 from "../../assets/alproPro2.jpg";
 // --- DATA for the Products Section (from your image) ---
@@ -71,7 +65,11 @@ export function ProductSection() {
             <motion.div key={product.title} variants={sectionVariants}>
               <Card className="bg-white border-gray-200 text-gray-900 flex flex-col h-full shadow-lg hover:shadow-xl transition-all duration-300">
                 <div className="h-[100%] bg-gray-100 rounded-t-lg overflow-hidden">
-                  <img src={product.imageUrl} alt={product.title} className="w-full h-full object-contain" />
+                  <img
+                    src={product.imageUrl}
+                    alt={product.title}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-gray-900 text-lg">
