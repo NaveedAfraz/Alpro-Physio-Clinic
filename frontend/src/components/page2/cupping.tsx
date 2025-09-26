@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Check, Phone, ArrowRight, Award } from "lucide-react";
 import Header from "../home/header";
 import Footer from "../home/footer";
+import { ProductSection } from "./productDisplay";
+ 
 
 // --- DATA for the Cupping Therapy Course Page ---
 const pageData = {
@@ -169,7 +171,14 @@ export function CuppingCoursePage() {
               ))}
             </div>
           </motion.section>
-
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
+          >
+            <ProductSection />
+          </motion.section>
           {/* Who Can Join Section */}
           <motion.section
             initial="hidden"

@@ -220,7 +220,7 @@ const Hero = memo(() => {
       {/* HERO: left text + right boxed slider */}
       <section
         id="home"
-        className="relative pt-16 pb-10 lg:pb-20 bg-gradient-to-b from-[#DDF1FC] to-white"
+        className="relative pt-16 pb-10  md:px-12 lg:pb-20 bg-gradient-to-b from-[#DDF1FC] to-white"
       >
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
