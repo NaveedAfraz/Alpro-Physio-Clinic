@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { Link } from "react-router";
-import { Link as ScrollLink } from 'react-scroll';
+import { useNavigate } from "react-router";
 
 const Footer = () => {
   const socialLinks = [
@@ -22,19 +22,31 @@ const Footer = () => {
     { icon: Linkedin, href: "#" },
   ];
 
+  const navigate = useNavigate();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // const scrollToSection = (sectionId: string) => {
-  //   const element = document.getElementById(sectionId);
-  //   if (element) {
-  //     window.scrollTo({
-  //       top: element.offsetTop - 100,
-  //       behavior: 'smooth'
-  //     });
-  //   }
-  // };
+  const handleServiceNavigation = () => {
+    navigate('/');
+    // Scroll to services section after navigation
+    setTimeout(() => {
+      scrollToSection('services');
+    }, 100);
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerHeight = 100; // Account for header and some padding
+      const elementPosition = element.offsetTop - headerHeight;
+      window.scrollTo({
+        top: Math.max(0, elementPosition), // Ensure we don't scroll above the top
+        behavior: 'smooth'
+      });
+    }
+  };
 
   // --- Animation Variants ---
   const sectionVariants: Variants = {
@@ -100,7 +112,7 @@ const Footer = () => {
               className="text-gray-400 mb-3 hover:text-[#5492DD] transition-colors duration-300 flex items-center gap-2 group"
             >
               <span className="w-1.5 h-1.5 bg-gray-600 group-hover:bg-[#5492DD] rounded-full transition-colors duration-300"></span>
-              Affilitated Courses
+              Affiliated Courses
               <div className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
             </Link>
             <ul className="space-y-3">
@@ -114,13 +126,13 @@ const Footer = () => {
               ].map((service) => (
                 <li key={service}>
                   {/* FIX: Changed <a> to <Link> and updated path */}
-                  <Link
-                    to="/#services"
-                    className="text-gray-400 hover:text-[#5492DD] transition-colors duration-300 flex items-center gap-2 group"
+                  <button
+                    onClick={() => handleServiceNavigation()}
+                    className="text-gray-400 hover:text-[#5492DD] transition-colors duration-300 flex items-center gap-2 group cursor-pointer text-left"
                   >
                     <span className="w-1.5 h-1.5 bg-gray-600 group-hover:bg-[#5492DD] rounded-full transition-colors duration-300"></span>
                     {service}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -132,21 +144,18 @@ const Footer = () => {
               Quick Links
             </h3>
             <ul className="space-y-3">
-              {["about", "services", "testimonials", "contact"].map(
+              {["about", "services", "online-consultation", "testimonials", "contact"].map(
                 (section) => {
                   const displayName = section.charAt(0).toUpperCase() + section.slice(1);
                   return (
                     <li key={section}>
-                      <ScrollLink
-                        to={section}
-                        smooth={true}
-                        duration={500}
-                        offset={-100}
-                        className="text-gray-400 hover:text-[#5492DD] transition-colors duration-300 flex items-center gap-2 group cursor-pointer"
+                      <button
+                        onClick={() => scrollToSection(section)}
+                        className="text-gray-400 hover:text-[#5492DD] transition-colors duration-300 flex items-center gap-2 group cursor-pointer text-left"
                       >
                         <span className="w-1.5 h-1.5 bg-gray-600 group-hover:bg-[#5492DD] rounded-full transition-colors duration-300"></span>
                         {displayName}
-                      </ScrollLink>
+                      </button>
                     </li>
                   );
                 }

@@ -9,8 +9,74 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleNavigate = (path: string) => {
-    navigate(path);
-    setIsMenuOpen(false);
+    if (path === "/contact") {
+      // Special handling for contact - scroll to contact section on home page
+      const currentPath = window.location.pathname;
+      if (currentPath === "/") {
+        // Already on home page, just scroll to contact section
+        setTimeout(() => {
+          const contactElement = document.getElementById('contact');
+          if (contactElement) {
+            const headerHeight = 100;
+            const elementPosition = contactElement.offsetTop - headerHeight;
+            window.scrollTo({
+              top: Math.max(0, elementPosition),
+              behavior: 'smooth'
+            });
+          }
+        }, 100);
+      } else {
+        // Navigate to home page first, then scroll to contact
+        navigate('/');
+        setTimeout(() => {
+          const contactElement = document.getElementById('contact');
+          if (contactElement) {
+            const headerHeight = 100;
+            const elementPosition = contactElement.offsetTop - headerHeight;
+            window.scrollTo({
+              top: Math.max(0, elementPosition),
+              behavior: 'smooth'
+            });
+          }
+        }, 600); // Longer delay to allow page transition
+      }
+      setIsMenuOpen(false);
+    } else if (path === "/book-appointment") {
+      // Special handling for appointment booking - scroll to appointment form on home page
+      const currentPath = window.location.pathname;
+      if (currentPath === "/") {
+        // Already on home page, just scroll to appointment section
+        setTimeout(() => {
+          const appointmentElement = document.getElementById('appointment');
+          if (appointmentElement) {
+            const headerHeight = 100;
+            const elementPosition = appointmentElement.offsetTop - headerHeight;
+            window.scrollTo({
+              top: Math.max(0, elementPosition),
+              behavior: 'smooth'
+            });
+          }
+        }, 100);
+      } else {
+        // Navigate to home page first, then scroll to appointment
+        navigate('/');
+        setTimeout(() => {
+          const appointmentElement = document.getElementById('appointment');
+          if (appointmentElement) {
+            const headerHeight = 100;
+            const elementPosition = appointmentElement.offsetTop - headerHeight;
+            window.scrollTo({
+              top: Math.max(0, elementPosition),
+              behavior: 'smooth'
+            });
+          }
+        }, 600); // Longer delay to allow page transition
+      }
+      setIsMenuOpen(false);
+    } else {
+      navigate(path);
+      setIsMenuOpen(false);
+    }
   };
 
   return (
@@ -72,7 +138,7 @@ const Header = () => {
               <div className="absolute inset-x-0 bottom-0 h-0.5 bg-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
             </Link>
             <Button
-              onClick={() => navigate("/contact")}
+              onClick={() => handleNavigate("/contact")}
               className="hidden md:flex group bg-[#0044A3] hover:bg-[#003380] text-white px-4 py-5 text-md font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
             >
               Contact Us
@@ -84,9 +150,9 @@ const Header = () => {
             <Button
               variant="default"
               className=" hidden md:flex group bg-[#0044A3] hover:bg-[#003380] text-white px-8 py-5 text-md font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-              onClick={() => navigate("/book-appointment")}
+              onClick={() => handleNavigate("/book-appointment")}
             >
-              Book Appointment
+              Book Your First Free Appointment
             </Button>
             <div className="lg:hidden">
               <Button
@@ -131,7 +197,7 @@ const Header = () => {
                 className="w-full"
                 onClick={() => handleNavigate("/book-appointment")}
               >
-                Book Appointment
+                Book Your First Free Appointment
               </Button>
             </div>
           </div>

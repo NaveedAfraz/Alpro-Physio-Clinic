@@ -1,11 +1,10 @@
 import { motion, type Variants } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check, Phone, ArrowRight, Award } from "lucide-react";
+import { Check, Phone, ArrowRight, Award, Star } from "lucide-react";
 import Header from "../home/header";
 import Footer from "../home/footer";
-import { ProductSection } from "./productDisplay";
- 
+
 
 // --- DATA for the Cupping Therapy Course Page ---
 const pageData = {
@@ -51,6 +50,32 @@ const pageData = {
     contact: "+91 8770922310",
     text: "Seats are limited to ensure personalized training.",
   },
+  testimonials: [
+    {
+      name: "Dr. Priya Sharma",
+      role: "Physiotherapist",
+      location: "Delhi",
+      content:
+        "The cupping therapy course at Alpro Physio Clinic was exceptional. The hands-on training and expert guidance helped me integrate cupping into my practice effectively. The certification is internationally recognized and has opened new opportunities for me.",
+      rating: 5,
+    },
+    {
+      name: "Ahmed Hassan",
+      role: "Sports Coach",
+      location: "Mumbai",
+      content:
+        "I was impressed by the comprehensive curriculum covering both theory and practical aspects. The instructors are highly knowledgeable and the hybrid learning format made it convenient to learn at my own pace. Highly recommended for anyone serious about cupping therapy.",
+      rating: 5,
+    },
+    {
+      name: "Sarah Johnson",
+      role: "Wellness Practitioner",
+      location: "Bangalore",
+      content:
+        "The diploma course exceeded my expectations. The detailed training on wet cupping techniques and the focus on hygiene and safety protocols gave me complete confidence to practice professionally. The ongoing support from the team is outstanding.",
+      rating: 5,
+    },
+  ],
 };
 
 // --- Animation Variants ---
@@ -171,14 +196,14 @@ export function CuppingCoursePage() {
               ))}
             </div>
           </motion.section>
-          <motion.section
+          {/* <motion.section
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
           >
             <ProductSection />
-          </motion.section>
+          </motion.section> */}
           {/* Who Can Join Section */}
           <motion.section
             initial="hidden"
@@ -218,6 +243,48 @@ export function CuppingCoursePage() {
             <p className="mt-4 text-lg text-gray-600">
               {pageData.certification}
             </p>
+          </motion.section>
+
+          {/* Testimonials Section */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
+          >
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900">
+                What Our Clients Say
+              </h2>
+              <p className="mt-2 text-lg text-gray-600">
+                Real experiences from professionals who transformed their practice
+              </p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {pageData.testimonials.map((testimonial, index) => (
+                <motion.div key={index} variants={sectionVariants}>
+                  <Card className="h-full shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <CardContent className="p-6">
+                      <div className="flex items-center mb-4">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="h-5 w-5 text-yellow-500 fill-current" />
+                        ))}
+                      </div>
+                      <p className="text-gray-600 mb-6 italic">
+                        "{testimonial.content}"
+                      </p>
+                      <div className="border-t pt-4">
+                        <h4 className="font-semibold text-gray-900">
+                          {testimonial.name}
+                        </h4>
+                        <p className="text-sm text-blue-600">{testimonial.role}</p>
+                        <p className="text-sm text-gray-500">{testimonial.location}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
           </motion.section>
 
           {/* Enroll Today CTA */}

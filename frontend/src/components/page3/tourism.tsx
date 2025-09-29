@@ -192,7 +192,7 @@ export function MedicalTourismPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="text-white border-white hover:bg-white/10"
+                  className="text-blue-600 border-blue-600 hover:bg-blue-600/10"
                 >
                   <Phone className="mr-2 h-5 w-5" />
                   Contact us: {pageData.cta.contact}
