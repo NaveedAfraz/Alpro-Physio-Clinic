@@ -4,7 +4,6 @@ import {
   Phone,
   Mail,
   Clock,
-  Twitter,
   Instagram,
   Facebook,
   Linkedin,
@@ -16,10 +15,9 @@ import { useNavigate } from "react-router";
 
 const Footer = () => {
   const socialLinks = [
-    { icon: Facebook, href: "#" },
-    { icon: Instagram, href: "#" },
-    { icon: Twitter, href: "#" },
-    { icon: Linkedin, href: "#" },
+    { icon: Facebook, href: "https://www.facebook.com/share/17dVbqPacb/" },
+    { icon: Instagram, href: "https://www.instagram.com/alprophysioclinic?igsh=ZjFpYTBzOXZ0YjY2" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/alprophysioclinic/" },
   ];
 
   const navigate = useNavigate();
