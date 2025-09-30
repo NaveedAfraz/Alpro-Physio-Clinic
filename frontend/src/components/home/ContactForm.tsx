@@ -168,6 +168,7 @@ const ContactForm = () => {
                     onChange={handleInputChange}
                     className="block w-full h-12 rounded-lg border-gray-300 pl-10 shadow-sm focus:border-[#0044A3] focus:ring-[#0044A3] sm:text-sm font-opensans"
                     placeholder="+1 (555) 123-4567"
+                    maxLength={10}
                   />
                 </div>
               </div>

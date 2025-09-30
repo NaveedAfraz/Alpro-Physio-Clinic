@@ -86,11 +86,11 @@ const Header = () => {
         <div className="container mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
             <a
-              href="tel:+918770623310"
+              href="tel:+918770922310"
               className="flex items-center gap-2 hover:text-blue-200 transition-colors"
             >
               <Phone size={16} />
-              <span className="font-medium">+91 8770623310</span>
+              <span className="font-medium">+91 8770922310</span>
             </a>
             <div className="hidden md:flex items-center gap-2 text-blue-200">
               <MapPin size={16} />

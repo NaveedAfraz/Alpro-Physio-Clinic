@@ -19,7 +19,7 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Phone Numbers",
-      details: ["+91 8770623310", "Emergency: 24/7 Available"],
+      details: ["+91 8770922310", "Emergency: 24/7 Available"],
       action: "Call Now",
       color: "text-[#0044A3]",
       bgColor: "bg-[#EBF5FF]",
@@ -46,21 +46,24 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 md:px-12 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+    <section
+      id="contact"
+      className="py-24 md:px-12 bg-gradient-to-b from-white to-gray-50 overflow-hidden"
+    >
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <motion.div 
-          className="text-center mb-20" 
+        <motion.div
+          className="text-center mb-20"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={{
             hidden: { opacity: 0, y: 20 },
-            visible: { 
-              opacity: 1, 
-              y: 0, 
-              transition: { duration: 0.6 } 
-            }
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.6 },
+            },
           }}
         >
           <h2 className="text-4xl lg:text-5xl font-bold text-[#1C1D0E] mb-6 font-acumin">
@@ -74,7 +77,7 @@ const Contact = () => {
             out to our healthcare experts today.
           </p>
         </motion.div>
-        
+
         {/* Main Contact Section */}
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Contact Form */}
@@ -86,10 +89,10 @@ const Contact = () => {
           >
             <ContactForm />
           </motion.div>
-          
+
           {/* Contact Information */}
           <div className="space-y-8">
-            <motion.div 
+            <motion.div
               className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden"
               initial="hidden"
               whileInView="visible"
@@ -135,17 +138,19 @@ const Contact = () => {
                   viewport={{ once: true }}
                   variants={{
                     hidden: { opacity: 0, y: 20 },
-                    visible: { 
-                      opacity: 1, 
-                      y: 0, 
-                      transition: { 
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: {
                         duration: 0.6,
-                        delay: index * 0.1
-                      } 
-                    }
+                        delay: index * 0.1,
+                      },
+                    },
                   }}
                 >
-                  <div className={`w-14 h-14 ${info.bgColor} rounded-xl flex items-center justify-center mx-auto mb-4`}>
+                  <div
+                    className={`w-14 h-14 ${info.bgColor} rounded-xl flex items-center justify-center mx-auto mb-4`}
+                  >
                     <info.icon className={`w-7 h-7 ${info.color}`} />
                   </div>
                   <h3 className="text-lg font-semibold text-[#1C1D0E] mb-2 font-acumin">
@@ -153,18 +158,27 @@ const Contact = () => {
                   </h3>
                   <div className="space-y-1 mb-4">
                     {info.details.map((detail, idx) => (
-                      <p key={idx} className="text-[#1C1D0E]/80 text-sm font-opensans">
+                      <p
+                        key={idx}
+                        className="text-[#1C1D0E]/80 text-sm font-opensans"
+                      >
                         {detail}
                       </p>
                     ))}
                   </div>
-                  <button 
+                  <button
                     className={`text-sm font-medium ${info.color} hover:underline`}
                     onClick={() => {
-                      if (info.action === 'Call Now') {
-                        window.location.href = `tel:${info.details[0].replace(/\D/g, '')}`;
-                      } else if (info.action === 'Get Directions') {
-                        window.open('https://maps.google.com/maps?q=Alpro+Physio+Clinic,+40+No.+Kothi+Road,+Jawahar+Colony,+Shivpuri,+Madhya+Pradesh', '_blank');
+                      if (info.action === "Call Now") {
+                        window.location.href = `tel:${info.details[0].replace(
+                          /\D/g,
+                          ""
+                        )}`;
+                      } else if (info.action === "Get Directions") {
+                        window.open(
+                          "https://maps.google.com/maps?q=Alpro+Physio+Clinic,+40+No.+Kothi+Road,+Jawahar+Colony,+Shivpuri,+Madhya+Pradesh",
+                          "_blank"
+                        );
                       }
                     }}
                   >

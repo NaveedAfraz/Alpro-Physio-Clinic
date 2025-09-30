@@ -101,6 +101,15 @@ const OnlineConsultation = () => {
   };
 
   const consultationTypes = [
+    "Sports Physiotherapy",
+    "Neurological Physiotherapy",
+    "Prenatal Physiotherapy",
+    "Postnatal Physiotherapy",
+    "Paediatric Physiotherapy",
+    "Geriatric Physiotherapy",
+    "Occupational Therapy",
+    "Cupping Therapy",
+    "Fire Cupping Therapy",
     "General Physiotherapy Consultation",
     "Sports Injury Assessment",
     "Post-Surgery Rehabilitation",
@@ -232,6 +241,7 @@ const OnlineConsultation = () => {
                       placeholder="Enter your phone number"
                       className="pl-10 h-12"
                       required
+                      maxLength={10}
                     />
                   </div>
                 </div>

@@ -367,6 +367,7 @@ const Hero = memo(() => {
                     onChange={handleInputChange}
                     placeholder="98765 43210"
                     className="pl-10 h-12"
+                    maxLength={10}
                   />
                 </div>
               </div>
@@ -406,14 +407,33 @@ const Hero = memo(() => {
                     <option value="" disabled>
                       Select Service
                     </option>
-                    <option value="physiotherapy">
-                      Advanced Physiotherapy
+                    <option value="sports-physiotherapy">
+                      Sports Physiotherapy
                     </option>
-                    <option value="rehabilitation">
-                      Rehabilitation Programs
+                    <option value="neurological-physiotherapy">
+                      Neurological Physiotherapy
                     </option>
-                    <option value="wellness">Wellness & Preventive Care</option>
-                    <option value="specialized">Specialized Care</option>
+                    <option value="prenatal-physiotherapy">
+                      Prenatal Physiotherapy
+                    </option>
+                    <option value="postnatal-physiotherapy">
+                      Postnatal Physiotherapy
+                    </option>
+                    <option value="paediatric-physiotherapy">
+                      Paediatric Physiotherapy
+                    </option>
+                    <option value="geriatric-physiotherapy">
+                      Geriatric Physiotherapy
+                    </option>
+                    <option value="occupational-therapy">
+                      Occupational Therapy
+                    </option>
+                    <option value="cupping-therapy">
+                      Cupping Therapy
+                    </option>
+                    <option value="fire-cupping-therapy">
+                      Fire Cupping Therapy
+                    </option>
                   </select>
                 </div>
               </div>
