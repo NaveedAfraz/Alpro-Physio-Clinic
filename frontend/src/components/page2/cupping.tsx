@@ -1,9 +1,10 @@
 import { motion, type Variants } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check, Phone, ArrowRight, Award, Star } from "lucide-react";
+import { Check, Phone, ArrowRight, Award, Star, User, Mail, MessageSquare } from "lucide-react";
 import Header from "../home/header";
 import Footer from "../home/footer";
+import { useState } from "react";
 
 
 // --- DATA for the Cupping Therapy Course Page ---
@@ -17,8 +18,7 @@ const pageData = {
       "Expert training by certified DOCTORS & Practitioners",
       "Hybrid mode of learning, Online sessions with hands on practical training, no distance barriers. Happy Learning!",
     ],
-    imageUrl:
-      "https://images.pexels.com/photos/4041253/pexels-photo-4041253.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    imageUrl: "/cuppingtoppic.jpg",
   },
   introduction: {
     title: "Learn Cupping at Alpro Physio Clinic",
@@ -85,6 +85,30 @@ const sectionVariants: Variants = {
 };
 
 export function CuppingCoursePage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    course: "",
+    message: ""
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission here
+    console.log("Form submitted:", formData);
+    // You can add form submission logic here
+    alert("Thank you for your interest! We'll contact you soon.");
+  };
+
   return (
     <>
       <Header />
@@ -92,8 +116,11 @@ export function CuppingCoursePage() {
         {/* 1. Hero Section */}
         <section className="relative text-white py-20 md:py-32 bg-gray-800">
           <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${pageData.hero.imageUrl})` }}
+            className="absolute inset-0 bg-cover bg-no-repeat bg-center"
+            style={{ 
+              backgroundImage: `url(${pageData.hero.imageUrl})`,
+              backgroundSize: 'cover'
+            }}
           />
           <div className="absolute inset-0 bg-black/60"></div>
           <div className="container mx-auto px-4 text-center relative z-10">
@@ -285,6 +312,133 @@ export function CuppingCoursePage() {
                 </motion.div>
               ))}
             </div>
+          </motion.section>
+
+          {/* Enrollment Form Section */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            variants={sectionVariants}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-900">
+                Enroll Now / Get More Information
+              </h2>
+              <p className="mt-2 text-lg text-gray-600">
+                Fill out the form below and we'll get back to you with course details and enrollment information
+              </p>
+            </div>
+            <Card className="shadow-lg">
+              <CardContent className="p-8">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                        Full Name *
+                      </label>
+                      <div className="relative">
+                        <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          placeholder="Enter your full name"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                        Email Address *
+                      </label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          placeholder="Enter your email address"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                        Phone Number *
+                      </label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Enter your phone number"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="course" className="block text-sm font-medium text-gray-700 mb-2">
+                        Preferred Course
+                      </label>
+                      <select
+                        id="course"
+                        name="course"
+                        value={formData.course}
+                        onChange={handleInputChange}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      >
+                        <option value="">Select a course</option>
+                        <option value="certificate">Certificate Course in Hijama (Cupping Therapy) - ₹11,999</option>
+                        <option value="diploma">Diploma in Hijama (Cupping Therapy) - ₹14,999</option>
+                        <option value="both">Interested in both courses</option>
+                        <option value="information">Just need more information</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                      Message / Questions
+                    </label>
+                    <div className="relative">
+                      <MessageSquare className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        rows={4}
+                        className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Any specific questions or requirements?"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="text-center">
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold"
+                    >
+                      Submit Inquiry
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
           </motion.section>
 
           {/* Enroll Today CTA */}

@@ -6,11 +6,30 @@ import {
   Phone,
   Check,
   ArrowRight,
+  Baby,
 } from "lucide-react";
 import { motion, type Variants, type TargetAndTransition } from "framer-motion";
 
 const Services = () => {
   const mainServices = [
+    {
+      icon: Baby,
+      title: "Pediatric Occupational Therapy",
+      description: "Specialized therapy for children with developmental conditions and special needs",
+      features: [
+        "Developmental Delays",
+        "Autism Spectrum Disorder (ASD)",
+        "Cerebral Palsy",
+        "Down Syndrome",
+        "Sensory Processing Disorder (SPD)",
+        "ADHD",
+        "Traumatic Brain Injury (TBI)",
+      ],
+      bgColor: "bg-gradient-to-br from-[#F0F8E6] to-white",
+      iconColor: "bg-[#E3F2C1] text-[#4A7C59]",
+      borderColor: "border-[#E3F2C1]",
+      bulletColor: "bg-[#4A7C59]",
+    },
     {
       icon: Activity,
       title: "Advanced Physiotherapy & Pain Relief",

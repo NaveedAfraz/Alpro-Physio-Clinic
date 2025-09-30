@@ -184,10 +184,10 @@ const Footer = () => {
               <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-[#5492DD] flex-shrink-0" />
                 <a
-                  href="mailto:info@alpro-physio.com"
+                  href="mailto:info@alprophysio.com"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  info@alpro-physio.com
+                  info@alprophysio.com
                 </a>
               </div>
               <div className="flex items-start gap-3">
