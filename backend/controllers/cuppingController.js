@@ -2,7 +2,7 @@ const { Resend } = require("resend");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const sendCuppingEmail = async ({ name, email, phone, course, message }) => {
+const sendCuppingEmail = async ({ name, email, phone, country, course, message }) => {
   try {
     // Skip email sending in test environment
     if (process.env.NODE_ENV === 'test') {
@@ -29,6 +29,7 @@ const sendCuppingEmail = async ({ name, email, phone, course, message }) => {
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+        <p><strong>Country:</strong> ${country || 'Not provided'}</p>
         <p><strong>Course Interest:</strong> ${course || 'Not specified'}</p>
         <p><strong>Message:</strong></p>
         <p>${message ? message.replace(/\n/g, '<br>') : 'Not provided'}</p>
@@ -84,7 +85,7 @@ const sendCuppingEmail = async ({ name, email, phone, course, message }) => {
 
 const submitCuppingInquiry = async (req, res, next) => {
   try {
-    const { name, email, phone = "", course = "", message = "" } = req.body;
+    const { name, email, phone = "", country = "", course = "", message = "" } = req.body;
     const errors = [];
 
     // Input validation
@@ -117,6 +118,7 @@ const submitCuppingInquiry = async (req, res, next) => {
         name,
         email,
         phone,
+        country: country || 'Not provided',
         course: course || 'Not specified',
         message: message ? (message.length > 50 ? message.substring(0, 50) + '...' : message) : 'Not provided'
       });
@@ -126,6 +128,7 @@ const submitCuppingInquiry = async (req, res, next) => {
         name,
         email,
         phone,
+        country,
         course,
         message,
       });

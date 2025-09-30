@@ -91,6 +91,7 @@ export function CuppingCoursePage() {
     name: "",
     email: "",
     phone: "",
+    country: "",
     course: "",
     message: ""
   });
@@ -126,6 +127,7 @@ export function CuppingCoursePage() {
           name: "",
           email: "",
           phone: "",
+          country: "",
           course: "",
           message: ""
         });
@@ -428,23 +430,38 @@ export function CuppingCoursePage() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="course" className="block text-sm font-medium text-gray-700 mb-2">
-                        Preferred Course
+                      <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-2">
+                        Country
                       </label>
-                      <select
-                        id="course"
-                        name="course"
-                        value={formData.course}
+                      <input
+                        type="text"
+                        id="country"
+                        name="country"
+                        value={formData.country}
                         onChange={handleInputChange}
                         className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      >
-                        <option value="">Select a course</option>
-                        <option value="certificate">Certificate Course in Hijama (Cupping Therapy) - ₹11,999</option>
-                        <option value="diploma">Diploma in Hijama (Cupping Therapy) - ₹14,999</option>
-                        <option value="both">Interested in both courses</option>
-                        <option value="information">Just need more information</option>
-                      </select>
+                        placeholder="Enter your country"
+                      />
                     </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="course" className="block text-sm font-medium text-gray-700 mb-2">
+                      Preferred Course
+                    </label>
+                    <select
+                      id="course"
+                      name="course"
+                      value={formData.course}
+                      onChange={handleInputChange}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value="">Select a course</option>
+                      <option value="certificate">Certificate Course in Hijama (Cupping Therapy) - ₹11,999</option>
+                      <option value="diploma">Diploma in Hijama (Cupping Therapy) - ₹14,999</option>
+                      <option value="both">Interested in both courses</option>
+                      <option value="information">Just need more information</option>
+                    </select>
                   </div>
 
                   <div>
