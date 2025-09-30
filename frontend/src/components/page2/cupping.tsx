@@ -5,6 +5,8 @@ import { Check, Phone, ArrowRight, Award, Star, User, Mail, MessageSquare } from
 import Header from "../home/header";
 import Footer from "../home/footer";
 import { useState } from "react";
+import axios from "axios";
+import { toast } from "sonner";
 
 
 // --- DATA for the Cupping Therapy Course Page ---
@@ -92,6 +94,7 @@ export function CuppingCoursePage() {
     course: "",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -101,12 +104,48 @@ export function CuppingCoursePage() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
-    // You can add form submission logic here
-    alert("Thank you for your interest! We'll contact you soon.");
+    setIsSubmitting(true);
+
+    try {
+      const response = await axios.post(
+        `${
+          import.meta.env.VITE_API_URL || "http://localhost:5000/api"
+        }/cupping-inquiry`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.data.success) {
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          course: "",
+          message: ""
+        });
+        toast.success("Your inquiry has been submitted successfully! We'll contact you soon.");
+      } else {
+        toast.error(response.data.message || "Failed to submit inquiry");
+      }
+    } catch (error: any) {
+      let errorMessage = "Failed to submit inquiry. Please try again.";
+      if (error.response?.data?.errors) {
+        errorMessage = error.response.data.errors
+          .map((err: any) => `${err.field}: ${err.message}`)
+          .join("\n");
+      } else if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      }
+      toast.error(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -431,8 +470,9 @@ export function CuppingCoursePage() {
                       type="submit"
                       size="lg"
                       className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold"
+                      disabled={isSubmitting}
                     >
-                      Submit Inquiry
+                      {isSubmitting ? "Submitting..." : "Submit Inquiry"}
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                   </div>

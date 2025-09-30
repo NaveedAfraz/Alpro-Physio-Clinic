@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const appointmentRoutes = require('./routes/appointmentRoutes');
 const contactRoutes = require('./routes/contactRoutes');
+const consultationRoutes = require('./routes/consultationRoutes');
+const cuppingRoutes = require('./routes/cuppingRoutes');
 const { errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
@@ -17,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/online-consultation', consultationRoutes);
+app.use('/api/cupping-inquiry', cuppingRoutes);
 
 // Error handling middleware
 app.use(errorHandler);
