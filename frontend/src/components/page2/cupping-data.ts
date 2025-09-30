@@ -13,7 +13,7 @@ export const pageData: CuppingCourseData = {
     imageUrl: "/cuppingtoppic.jpg",
   },
   introduction: {
-    title: "Alpro Physio Clinic × Meridian Care",
+    title: "Alpro Physio Clinic × Learn Cupping Therapy",
     text: "Cupping therapy (Hijama) is one of the world’s oldest healing systems, and today it is recognized globally for its effectiveness in pain management, stress relief, detox, and overall wellness.",
   },
   courses: [
