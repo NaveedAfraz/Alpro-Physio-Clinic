@@ -21,7 +21,7 @@ export function CuppingCoursePage() {
           title={pageData.hero.title}
           subtitle={pageData.hero.subtitle}
           features={pageData.hero.features}
-          imageUrl={pageData.hero.imageUrl}
+          images={pageData.hero.images}
         />
 
         {/* Main Content Sections */}

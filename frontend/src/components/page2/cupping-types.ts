@@ -4,7 +4,10 @@ export interface CuppingCourseData {
     title: string;
     subtitle: string;
     features: string[];
-    imageUrl: string;
+    images: {
+      mobile: string;
+      desktop: string;
+    };
   };
   introduction: {
     title: string;

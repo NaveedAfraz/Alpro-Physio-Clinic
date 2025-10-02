@@ -1,21 +1,48 @@
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { useState, useEffect } from "react";
 
 interface HeroSectionProps {
   title: string;
   subtitle: string;
   features: string[];
-  imageUrl: string;
+  images: {
+    mobile: string;
+    desktop: string;
+  };
 }
 
-export function HeroSection({ title, subtitle, features, imageUrl }: HeroSectionProps) {
+export function HeroSection({ title, subtitle, features, images }: HeroSectionProps) {
+  const [currentImage, setCurrentImage] = useState(images.desktop);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      if (window.innerWidth < 768) {
+        setCurrentImage(images.mobile);
+      } else {
+        setCurrentImage(images.desktop);
+      }
+    };
+
+    // Check on mount
+    checkScreenSize();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', checkScreenSize);
+
+    // Cleanup event listener
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, [images.mobile, images.desktop]);
+
   return (
-    <section className="relative text-white py-20 md:py-32 bg-gray-800">
-      <div
-        className="absolute inset-0 bg-cover bg-no-repeat bg-center"
+    <section className="relative text-white py-20 md:py-32 bg-gray-800 h-screen md:h-[70vh] flex items-center overflow-hidden">
+      <img
+        src={currentImage}
+        alt="Cupping Therapy Course"
+        className="absolute inset-0 w-full h-full md:h-[66.5vh] object-cover"
         style={{
-          backgroundImage: `url(${imageUrl})`,
-          backgroundSize: 'cover'
+          transform: 'scale(1.1)',
+          transformOrigin: 'center center'
         }}
       />
       <div className="absolute inset-0 bg-black/60"></div>

@@ -10,7 +10,10 @@ export const pageData: CuppingCourseData = {
       "Expert training by certified DOCTORS & Practitioners",
       "Hybrid mode of learning, Online sessions with hands on practical training, no distance barriers. Happy Learning!",
     ],
-    imageUrl: "/cuppingtoppic.jpg",
+    images: {
+      mobile: "/cupp.jpg",
+      desktop: "/cuppingtoppic.jpg",
+    },
   },
   introduction: {
     title: "Alpro Physio Clinic × Learn Cupping Therapy",
