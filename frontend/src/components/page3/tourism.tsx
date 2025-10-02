@@ -77,6 +77,15 @@ const sectionVariants: Variants = {
 };
 
 export function MedicalTourismPage() {
+  const handleBooking = () => {
+    // Navigate to home page with appointment hash
+    window.location.href = '/#appointment';
+  };
+
+  const handleCall = () => {
+    window.open('tel:+918770922310', '_self');
+  };
+
   return (
     <>
       <Header />
@@ -185,6 +194,7 @@ export function MedicalTourismPage() {
                   size="lg"
                   variant="secondary"
                   className="bg-white text-blue-600 hover:bg-gray-100"
+                  onClick={handleBooking}
                 >
                   <Calendar className="mr-2 h-5 w-5" />
                   Start with an online consultation
@@ -193,9 +203,10 @@ export function MedicalTourismPage() {
                   size="lg"
                   variant="outline"
                   className="text-blue-600 border-blue-600 hover:bg-blue-600/10"
+                  onClick={handleCall}
                 >
                   <Phone className="mr-2 h-5 w-5" />
-                  Contact us: {pageData.cta.contact}
+                  Call Now: {pageData.cta.contact}
                 </Button>
               </div>
             </div>

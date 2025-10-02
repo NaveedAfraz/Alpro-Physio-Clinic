@@ -2,13 +2,11 @@ import { Star, Quote, ArrowRight } from "lucide-react";
 import { motion, useInView, type Variants, animate } from "framer-motion";
 import { useEffect, useRef, type FC } from "react";
 
-// --- Reusable Animated Number Components ---
 interface AnimatedNumberProps {
   to: number;
   isInView: boolean;
   isFloat?: boolean; // To handle decimal numbers
 }
-
 const AnimatedStatistic: FC<{
   to: number;
   suffix?: string;
@@ -65,6 +63,23 @@ const Avatar: FC<{ name: string }> = ({ name }) => {
 };
 
 const Testimonials = () => {
+  const handleBooking = () => {
+    const appointmentSection = document.getElementById('appointment');
+    if (appointmentSection) {
+      const headerOffset = 100; // Account for header height
+      const elementPosition = appointmentSection.offsetTop;
+      const offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const handleCall = () => {
+    window.open('tel:+919876543210', '_self');
+  };
   const testimonials = [
     {
       name: "Mrs. Anita Sharma",
@@ -221,17 +236,28 @@ const Testimonials = () => {
 
         {/* Call to Action */}
         <motion.div className="text-center" variants={fadeInUp}>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-4">
             <h3 className="text-2xl font-bold text-[#1C1D0E] font-acumin">
               Ready to Write Your Success Story?
             </h3>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <motion.button
               className="px-8 py-4 bg-[#0044A3] hover:bg-[#003380] text-white font-semibold rounded-lg shadow-md transition-colors duration-300 font-opensans flex items-center justify-center gap-2"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
+              onClick={handleBooking}
             >
               Book Your Consultation
               <ArrowRight className="w-5 h-5" />
+            </motion.button>
+            <motion.button
+              className="px-8 py-4 bg-white text-[#0044A3] border-2 border-[#0044A3] hover:bg-[#0044A3] hover:text-white font-semibold rounded-lg shadow-md transition-colors duration-300 font-opensans"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleCall}
+            >
+              Call: +91 8770922310
             </motion.button>
           </div>
         </motion.div>

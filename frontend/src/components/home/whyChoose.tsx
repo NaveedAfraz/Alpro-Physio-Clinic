@@ -36,17 +36,34 @@ import down2 from "../../assets/down2.jpg";
 
 //   return <span ref={ref} />;
 // };
-
 const WhyChoose = () => {
   const [expanded, setExpanded] = useState<number | false>(0);
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
+  const handleBooking = () => {
+    const appointmentSection = document.getElementById('appointment');
+    if (appointmentSection) {
+      const headerOffset = 100; // Account for header height
+      const elementPosition = appointmentSection.offsetTop;
+      const offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const handleCall = () => {
+    window.open('tel:+918770922310', '_self');
+  };
+
   // Auto-slide effect
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide(prev => (prev + 1) % 2);
+      setCurrentSlide((prev) => (prev + 1) % 2);
     }, 5000); // Change slide every 5 seconds
-    
+
     return () => clearInterval(interval);
   }, []);
 
@@ -147,7 +164,7 @@ const WhyChoose = () => {
 
         {/* Core Reasons Section - Image and Accordion */}
         <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 items-center mb-24">
-          <motion.div 
+          <motion.div
             className="w-full h-76 lg:h-[480px] rounded-2xl relative overflow-hidden shadow-2xl col-span-1"
             variants={fadeInUp}
           >
@@ -156,42 +173,64 @@ const WhyChoose = () => {
               {[down1, down2].map((slide, index) => (
                 <motion.div
                   key={index}
-                  className={`absolute inset-0 w-full h-full ${index === 0 ? 'z-10' : 'z-0'}`}
+                  className={`absolute inset-0 w-full h-full ${
+                    index === 0 ? "z-10" : "z-0"
+                  }`}
                   initial={{ opacity: index === 0 ? 1 : 0 }}
-                  animate={{ 
+                  animate={{
                     opacity: currentSlide === index ? 1 : 0,
-                    scale: currentSlide === index ? 1 : 1.05
+                    scale: currentSlide === index ? 1 : 1.05,
                   }}
                   transition={{ duration: 0.5 }}
                 >
-                  <img 
-                    src={slide} 
+                  <img
+                    src={slide}
                     alt={`Slide ${index + 1}`}
                     className="w-full h-full object-cover"
                   />
                 </motion.div>
               ))}
-              
+
               {/* Navigation Buttons */}
-              <button 
-                onClick={() => setCurrentSlide(prev => (prev - 1 + 2) % 2)}
+              <button
+                onClick={() => setCurrentSlide((prev) => (prev - 1 + 2) % 2)}
                 className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-[#0044A3] flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110"
                 aria-label="Previous slide"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="m15 18-6-6 6-6"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="m15 18-6-6 6-6" />
                 </svg>
               </button>
-              <button 
-                onClick={() => setCurrentSlide(prev => (prev + 1) % 2)}
+              <button
+                onClick={() => setCurrentSlide((prev) => (prev + 1) % 2)}
                 className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-[#0044A3] flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110"
                 aria-label="Next slide"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="m9 18 6-6-6-6"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="m9 18 6-6-6-6" />
                 </svg>
               </button>
-              
+
               {/* Dots Indicator */}
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
                 {[0, 1].map((dotIndex) => (
@@ -199,14 +238,16 @@ const WhyChoose = () => {
                     key={dotIndex}
                     onClick={() => setCurrentSlide(dotIndex)}
                     className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      currentSlide === dotIndex ? 'bg-white w-8' : 'bg-white/50 w-3'
+                      currentSlide === dotIndex
+                        ? "bg-white w-8"
+                        : "bg-white/50 w-3"
                     }`}
                     aria-label={`Go to slide ${dotIndex + 1}`}
                   />
                 ))}
               </div>
             </div>
-            
+
             {/* Overlay with text */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10 flex flex-col justify-end p-8">
               <h3 className="text-3xl font-bold text-white font-acumin mb-4">
@@ -311,13 +352,28 @@ const WhyChoose = () => {
                 ))}
               </div>
               <div className="text-center border-t border-white/20 pt-8 mt-8">
-                <motion.button
-                  className="px-8 py-4 bg-white text-[#0044A3] font-semibold rounded-lg shadow-md transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Start Your Recovery Today
-                </motion.button>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <motion.button
+                    className="px-8 py-4 bg-white text-[#0044A3] font-semibold rounded-lg shadow-md transition-all duration-300"
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleBooking}
+                  >
+                    Start Your Recovery Today
+                  </motion.button>
+                  <motion.button
+                    className="px-8 py-4 bg-white/10 text-white font-semibold rounded-lg shadow-md transition-all duration-300 border border-white/30"
+                    whileHover={{
+                      scale: 1.05,
+                      y: -2,
+                      backgroundColor: "rgba(255,255,255,0.2)",
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleCall}
+                  >
+                    Call Now: +91 8770922310
+                  </motion.button>
+                </div>
               </div>
             </div>
           </div>

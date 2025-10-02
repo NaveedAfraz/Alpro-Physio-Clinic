@@ -258,7 +258,20 @@ const Hero = memo(() => {
                   size="lg"
                   className="group bg-[#0044A3] hover:bg-[#003380] text-white px-6 py-3 text-lg font-semibold shadow"
                 >
-                  <a href="#appointment">
+                  <a href="#appointment" onClick={(e) => {
+                    e.preventDefault();
+                    const appointmentSection = document.getElementById('appointment');
+                    if (appointmentSection) {
+                      const headerOffset = 100; // Account for header height
+                      const elementPosition = appointmentSection.offsetTop;
+                      const offsetPosition = elementPosition - headerOffset;
+
+                      window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                      });
+                    }
+                  }}>
                     <Calendar className="mr-2 inline-block" size={18} />
                     Book Appointment
                     <ArrowRight className="ml-2 inline-block" size={18} />
@@ -266,14 +279,24 @@ const Hero = memo(() => {
                 </Button>
 
                 <Button
-                  asChild
                   variant="outline"
                   className="group border-2 border-[#008D7D] text-[#008D7D] px-6 py-3 font-semibold"
+                  onClick={() => {
+                    const servicesSection = document.getElementById('services');
+                    if (servicesSection) {
+                      const headerOffset = 100; // Account for header height
+                      const elementPosition = servicesSection.offsetTop;
+                      const offsetPosition = elementPosition - headerOffset;
+
+                      window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                      });
+                    }
+                  }}
                 >
-                  <a href="#medical-tourism">
-                    <Globe className="mr-2 inline-block" size={18} />
-                    Explore Medical Tourism
-                  </a>
+                  <Globe className="mr-2 inline-block" size={18} />
+                  Explore Medical Tourism
                 </Button>
               </motion.div>
             </motion.div>

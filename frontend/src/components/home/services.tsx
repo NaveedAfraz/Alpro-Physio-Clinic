@@ -11,6 +11,23 @@ import {
 import { motion, type Variants, type TargetAndTransition } from "framer-motion";
 
 const Services = () => {
+  const handleBooking = () => {
+    const appointmentSection = document.getElementById('appointment');
+    if (appointmentSection) {
+      const headerOffset = 100; // Account for header height
+      const elementPosition = appointmentSection.offsetTop;
+      const offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const handleCall = () => {
+    window.open('tel:+918770922310', '_self');
+  };
   const mainServices = [
     {
       icon: Baby,
@@ -301,16 +318,18 @@ const Services = () => {
                 className="px-8 py-4 bg-white text-[#0044A3] font-semibold rounded-lg shadow-md transition-all duration-300"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={handleBooking}
               >
                 Book Assessment
               </motion.button>
               <motion.button
-                className="px-8 py-4 bg-transparent hover:bg-white/10 text-white border-2 border-white/50 font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
-                whileHover={{ scale: 1.05, y: -2 }}
+                className="px-8 py-4 bg-white/10 text-white font-semibold rounded-lg shadow-md transition-all duration-300 border border-white/30"
+                whileHover={{ scale: 1.05, y: -2, backgroundColor: 'rgba(255,255,255,0.2)' }}
                 whileTap={{ scale: 0.95 }}
+                onClick={handleCall}
               >
                 <Phone className="w-5 h-5" />
-                Call Now
+                Call Now: +91 8770922310
               </motion.button>
             </div>
           </div>
