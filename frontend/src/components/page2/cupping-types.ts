@@ -11,6 +11,7 @@ export interface CuppingCourseData {
   };
   introduction: {
     title: string;
+    subtitle: string;
     text: string;
   };
   courses: {

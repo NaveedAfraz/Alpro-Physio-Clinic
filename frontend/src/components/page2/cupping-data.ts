@@ -1,4 +1,4 @@
-import type { CuppingCourseData } from './cupping-types';
+import type { CuppingCourseData } from "./cupping-types";
 
 export const pageData: CuppingCourseData = {
   hero: {
@@ -16,7 +16,8 @@ export const pageData: CuppingCourseData = {
     },
   },
   introduction: {
-    title: "Alpro Physio Clinic × Learn Cupping Therapy",
+    title: `Alpro Physio Clinic × Meridian Care`,
+    subtitle: "Learn Cupping Therapy",
     text: "Cupping therapy (Hijama) is one of the world’s oldest healing systems, and today it is recognized globally for its effectiveness in pain management, stress relief, detox, and overall wellness.",
   },
   courses: [
@@ -33,14 +34,7 @@ export const pageData: CuppingCourseData = {
       price: "₹14,999/-",
     },
   ],
-  locations: [
-    "Mumbai",
-    "Delhi",
-    "Bhopal",
-    "Bengaluru",
-    "Kolkata",
-    "Hyderabad"
-  ],
+  locations: ["Mumbai", "Delhi", "Bhopal", "Bengaluru", "Kolkata", "Hyderabad"],
   whoCanJoin: [
     "Healthcare professionals (AYUSH Doctors, Physiotherapists, Nurses and Wellness Experts)",
     "Sports coaches, Trainers & Fitness professionals",

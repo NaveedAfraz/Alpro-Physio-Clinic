@@ -29,6 +29,7 @@ export function CuppingCoursePage() {
           {/* Introduction Section */}
           <IntroductionSection
             title={pageData.introduction.title}
+            subtitle={pageData.introduction.subtitle}
             text={pageData.introduction.text}
           />
 
