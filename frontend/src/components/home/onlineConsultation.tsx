@@ -43,7 +43,9 @@ const OnlineConsultation = () => {
       setIsSubmitting(true);
       try {
         const response = await axios.post(
-          "http://localhost:5000/api/online-consultation",
+          `${
+            import.meta.env.VITE_API_URL || "http://localhost:5000/api"
+          }/online-consultation`,
           {
             name: formData.fullName,
             phone: formData.phone,
