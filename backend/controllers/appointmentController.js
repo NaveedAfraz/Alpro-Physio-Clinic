@@ -15,7 +15,7 @@ const sendConfirmationEmail = async (appointment) => {
   try {
     const { data, error } = await resend.emails.send({
       from: `${process.env.APP_NAME} <${process.env.APP_EMAIL}>`,
-      to: [appointment.email],
+      to: [process.env.CONTACT_EMAIL],
       subject: "Appointment Confirmation",
       html: `
         <h2>Thank you for booking an appointment with us!</h2>

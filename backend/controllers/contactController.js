@@ -22,7 +22,7 @@ const sendContactEmail = async ({ name, email, phone, subject, message }) => {
 
     const emailData = {
       from: `${process.env.APP_NAME} <${process.env.APP_EMAIL}>`,
-      to: process.env.CONTACT_EMAIL || 'naveedafraz2003@gmail.com',
+      to: process.env.CONTACT_EMAIL,
       subject: `New Contact Form: ${subject}`,
       html: `
         <h2>New Contact Form Submission</h2>

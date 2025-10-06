@@ -22,7 +22,7 @@ const sendConsultationEmail = async ({ name, email, phone, preferredTime, consul
 
     const emailData = {
       from: `${process.env.APP_NAME} <${process.env.APP_EMAIL}>`,
-      to: process.env.CONTACT_EMAIL || 'naveedafraz2003@gmail.com',
+      to: process.env.CONTACT_EMAIL,
       subject: `New Online Consultation Request from ${name}`,
       html: `
         <h2>New Online Consultation Request</h2>
